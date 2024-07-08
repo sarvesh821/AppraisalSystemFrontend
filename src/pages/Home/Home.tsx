@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Home: React.FC = () => {
   return (
     
-      <div className="container   shadow p-3 mb-5 bg-white rounded " style={{marginTop:"7rem"}}>
+      <div className=" container shadow p-3 mb-5 bg-white rounded " style={{marginTop:"7rem"}}>
     <div className="row justify-content-center">
       <div className="col-12 text-center">
         <h1 className="text-primary">Appraisal System</h1>
