@@ -20,8 +20,8 @@ main{
     width: 70px;
     transition: all 0.5s;
     margin-left: 23px;
-    border-radius: 5% 5% 5% 5%;
-    border: 0.5px solid lightgray;
+    border-radius: 7%;
+    /* border-right: 0.5px solid lightgray; */
     overflow: hidden;
 }
 .top_section{
