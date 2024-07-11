@@ -1,5 +1,5 @@
 
-import {  FaPlus, FaSignOutAlt, FaTh, FaUserAlt } from "react-icons/fa";
+import {  FaPlus, FaSignOutAlt, FaTh, FaUserAlt,FaTasks } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import './EmployeeSidebar.css';
@@ -36,7 +36,7 @@ const EmployeeSidebar: React.FC<EmployeeSidebarProps> = ({ children }) => {
     {
         path: 'tasks',
         name: "tasks",
-        icon: <FaUserAlt />
+        icon: <FaTasks />
       },
   ];
 

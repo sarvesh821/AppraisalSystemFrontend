@@ -1,8 +1,26 @@
-import React from 'react';
-import { FaUsers, FaTasks, FaChartBar } from 'react-icons/fa';
+import React, { useEffect, useState } from 'react';
+import { FaUsers, FaTasks} from 'react-icons/fa';
 import './Dashboard.css';
+import axios from 'axios';
 
 const AdminMainDashboard: React.FC = () => {
+    const [userData, setUserData] = useState<number>(0);
+    const [unratedEmployeesCount, setUnratedEmployeesCount] = useState<number>(0);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const usersResponse = await axios.get('http://localhost:8000/api/current-employees/');
+                const unratedEmployeesResponse = await axios.get('http://localhost:8000/api/unrated-employees/');
+                setUnratedEmployeesCount(unratedEmployeesResponse.data.count);
+                setUserData(usersResponse.data.count);
+              
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
     return (
         <div className="admin-main-content">
             <h1>Welcome to Beehyv Admin Dashboard</h1>
@@ -11,14 +29,14 @@ const AdminMainDashboard: React.FC = () => {
                     <FaUsers className="stat-icon" />
                     <div className="stat-info">
                         <h3>Users</h3>
-                        <p>150</p>
+                        <p>{userData}</p>
                     </div>
                 </div>
                 <div className="stat-card">
                     <FaTasks className="stat-icon" />
                     <div className="stat-info">
                         <h3>Tasks</h3>
-                        <p>300</p>
+                        <p>{unratedEmployeesCount}</p>
                     </div>
                 </div>
                

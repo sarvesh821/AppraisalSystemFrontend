@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Register.css'; 
+import axios from 'axios';
 
 const RegisterEmployee: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -22,11 +23,23 @@ const RegisterEmployee: React.FC = () => {
         });
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Handle form submission logic here, e.g., send data to backend
-        console.log(formData);
-        // Reset form fields if needed
+    
+        try {
+            console.log(formData)
+            const response = await axios.post(
+                'http://localhost:8000/api/register-employee/',
+                formData
+            );
+            console.log('Employee registered successfully:', response.data);
+           
+        } catch (error) {
+            console.error('Error registering employee:', error);
+           
+        }
+    
+        
         setFormData({
             username: '',
             email: '',

@@ -1,6 +1,6 @@
 // AddTask.tsx
 
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import axios from 'axios';
 import getCSRFToken from '../../utils/getCSRFToken';
 import './AddTask.css';
@@ -10,34 +10,10 @@ const AddTask: React.FC = () => {
     const [timeTaken, setTimeTaken] = useState(0); // In days
     const [isAppraisable, setIsAppraisable] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
-    const [employee, setEmployee] = useState<any>(null);
+    
     const csrfToken = getCSRFToken();
 
-    useEffect(() => {
-        const fetchEmployeeData = async () => {
-            try {
-                const authToken = localStorage.getItem('authToken');
-                if (!authToken) {
-                    console.error('No authToken found');
-                    return;
-                }
-
-                const response = await axios.get('http://localhost:8000/api/employee-detail/', {
-                    headers: {
-                        'Authorization': `Token ${authToken}`,
-                    },
-                });
-
-                console.log(response.data); // Check the structure of response.data
-
-                setEmployee(response.data);
-            } catch (error) {
-                console.error('Error fetching employee data:', error);
-            }
-        };
-
-        fetchEmployeeData();
-    }, []);
+   
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -82,31 +58,7 @@ const AddTask: React.FC = () => {
         }
     };
 
-    const sendTasksForAppraisal = async () => {
-        try {
-            const authToken = localStorage.getItem('authToken');
-            if (!authToken) {
-                console.error('No authToken found');
-                return;
-            }
-
-            const response = await axios.post(
-                'http://localhost:8000/api/send-tasks-for-appraisal/',
-                {},
-                {
-                    headers: {
-                        'Authorization': `Token ${authToken}`,
-                        'X-CSRFToken': csrfToken || '',
-                    },
-                }
-            );
-
-            console.log('Tasks sent for appraisal successfully', response.data);
-            // Optionally show a success message or handle the response as needed
-        } catch (error) {
-            console.error('Error sending tasks for appraisal:', error);
-        }
-    };
+  
 
     return (
         <div className="form-container">
@@ -150,11 +102,7 @@ const AddTask: React.FC = () => {
                 </div>
                 <button type="submit">Add Task</button>
             </form>
-            {employee && employee.has_completed_one_year === true && (
-                <button onClick={sendTasksForAppraisal} className="mt-3 btn btn-primary">
-                    Send Tasks for Appraisal
-                </button>
-            )}
+          
         </div>
     );
 };

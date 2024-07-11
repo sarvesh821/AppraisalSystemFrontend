@@ -1,15 +1,41 @@
 // src/pages/EmployeeList.tsx
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 // Mock Data
-const employees = [
-  { id: 1, name: 'John Doe' },
-  { id: 2, name: 'Jane Smith' },
-  // Add more employees as needed
-];
+interface Employee {
+    id: number;
+    first_name: string;
+    last_name:string;
+  }
 
 const EmployeeList = () => {
+    const [employees, setEmployees] = useState<Employee[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+  
+    useEffect(() => {
+      axios.get('http://127.0.0.1:8000/api/employees-with-tasks-for-rating/')
+        .then(response => {
+          setEmployees(response.data);
+          setLoading(false);
+        })
+        .catch(error => {
+          console.error('Error fetching employees:', error);
+          setError('Error fetching employees');
+          setLoading(false);
+        });
+    }, []);
+  
+    if (loading) {
+      return <div>Loading...</div>;
+    }
+  
+    if (error) {
+      return <div>{error}</div>;
+    }
+  
   return (
     <div className="container mt-5">
       <h1>Employee List</h1>
@@ -17,10 +43,11 @@ const EmployeeList = () => {
         {employees.map(employee => (
           <Link
             key={employee.id}
-            to={`employee/${employee.id}`}
+            to={`/admindashboard/rating/employee/${employee.id}`}
+
             className="list-group-item list-group-item-action"
           >
-            {employee.name}
+            {employee.first_name} {employee.last_name} 
           </Link>
         ))}
       </div>

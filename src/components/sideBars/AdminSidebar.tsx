@@ -1,8 +1,9 @@
 import React from "react";
 import { FaSignOutAlt, FaStar, FaTh, FaUsers } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import { NavLink ,useNavigate} from "react-router-dom";
 import './AdminSidebar.css'
 import { MdPersonAdd } from "react-icons/md";
+import axios from "axios";
 
 interface MenuItem {
   path: string;
@@ -15,7 +16,7 @@ interface EmployeeSidebarProps {
 }
 
 const EmployeeSidebar: React.FC<EmployeeSidebarProps> = ({ children }) => {
-   
+   const navigate=useNavigate()
   const menuItems: MenuItem[] = [
     {
       path: 'dashboard',
@@ -37,13 +38,31 @@ const EmployeeSidebar: React.FC<EmployeeSidebarProps> = ({ children }) => {
       name: "employees",
       icon: <FaUsers />
     },
-    {
-      path: 'logout',
-      name: "logout",
-      icon: <FaSignOutAlt />
-    }
+   
   ];
+  const handleLogout = async () => {
+    const authToken = localStorage.getItem('authToken');
 
+    if (!authToken) {
+      console.error('No authToken found');
+      navigate('/login');
+      return;
+    }
+
+    try {
+      await axios.post('http://localhost:8000/api/logout/', {}, {
+        headers: {
+          Authorization: `Token ${authToken}`,
+        },
+      });
+
+     
+      localStorage.removeItem('authToken');
+      navigate('/login');
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
+  };
   return (
     <div className="container-flex">
        <div style={{width: "200px" }} className="sidebar">
@@ -58,6 +77,10 @@ const EmployeeSidebar: React.FC<EmployeeSidebarProps> = ({ children }) => {
                       
                    ))
                }
+                 <div onClick={handleLogout} className="link lead" style={{ cursor: 'pointer' }}>
+          <div className="icon"><FaSignOutAlt /></div>
+          <div style={{ display: "block" }} className="link_text">logout</div>
+        </div>
            </div>
            <main>{children}</main>
     </div>
