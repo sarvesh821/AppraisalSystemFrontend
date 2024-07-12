@@ -3,6 +3,7 @@ import './Register.css';
 import axios from 'axios';
 
 const RegisterEmployee: React.FC = () => {
+    const [successMessage, setSuccessMessage] = useState('');
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -32,8 +33,11 @@ const RegisterEmployee: React.FC = () => {
                 'http://localhost:8000/api/register-employee/',
                 formData
             );
+            setSuccessMessage('Employee Registered Sucessfully!');
             console.log('Employee registered successfully:', response.data);
-           
+            setTimeout(() => {
+                setSuccessMessage('');
+            }, 3000);
         } catch (error) {
             console.error('Error registering employee:', error);
            
@@ -55,6 +59,11 @@ const RegisterEmployee: React.FC = () => {
 
     return (
         <div className="form-container">
+            {successMessage && (
+               <div className="alert alert-success" role="alert">
+                   {successMessage}
+               </div>
+           )}
             <h2>Employee Info</h2>
             <form onSubmit={handleSubmit}>
               

@@ -1,56 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import getCSRFToken from '../../utils/getCSRFToken';
-
+// import getCSRFToken from '../../utils/getCSRFToken';
+import Cookies from 'js-cookie'
+import { fetchCSRFToken } from '../../utils/fetchCSRFToken';
 const EmployeeTasks: React.FC = () => {
     const [tasksToRate, setTasksToRate] = useState<any[]>([]);
     const [ratedTasks, setRatedTasks] = useState<any[]>([]);
     const [error, setError] = useState<string>('');
     const [employee, setEmployee] = useState<any>(null);
     const [notification, setNotification] = useState<{ type: 'success' | 'error', message: string } | null>(null);
-    const csrfToken = getCSRFToken();
+  
+   
+      useEffect(() => {
+        const initialize = async () => {
+            const csrfToken = await fetchCSRFToken(); // Fetch and store CSRF token
+            Cookies.set('csrftoken', csrfToken);
 
-    useEffect(() => {
-        const fetchEmployeeData = async () => {
+           
+            const authToken = localStorage.getItem('authToken');
+            if (!authToken) {
+                console.error('No authToken found');
+                return;
+            }
+
             try {
-                const authToken = localStorage.getItem('authToken');
-                if (!authToken) {
-                    console.error('No authToken found');
-                    return;
-                }
-
                 const response = await axios.get('http://localhost:8000/api/employee-detail/', {
                     headers: {
                         'Authorization': `Token ${authToken}`,
                     },
                 });
-
-                console.log(response.data);
                 setEmployee(response.data);
             } catch (error) {
                 console.error('Error fetching employee data:', error);
             }
-        };
 
-        fetchEmployeeData();
-    }, []);
-
-    useEffect(() => {
-        const fetchTasks = async () => {
+          
             try {
-                const authToken = localStorage.getItem('authToken');
-                if (!authToken) {
-                    setError('User not authenticated. Please log in.');
-                    window.location.href = '/login';
-                    return;
-                }
-
                 const response = await axios.get('http://localhost:8000/api/employee-tasks/', {
                     headers: {
                         'Authorization': `Token ${authToken}`,
                     },
                 });
-
                 setTasksToRate(response.data.tasks_to_rate);
                 setRatedTasks(response.data.rated_tasks);
             } catch (error) {
@@ -59,7 +49,7 @@ const EmployeeTasks: React.FC = () => {
             }
         };
 
-        fetchTasks();
+        initialize();
     }, []);
 
     const handleAxiosError = (error: any) => {
@@ -76,6 +66,14 @@ const EmployeeTasks: React.FC = () => {
     };
 
     const sendTasksForAppraisal = async () => {
+        const csrfToken = Cookies.get('csrftoken'); 
+      
+        
+        if (!csrfToken) {
+            console.error('CSRF token not found');
+            return;
+        }
+
         try {
             const authToken = localStorage.getItem('authToken');
             if (!authToken) {
@@ -83,15 +81,13 @@ const EmployeeTasks: React.FC = () => {
                 return;
             }
 
-            console.log(csrfToken);
-            
             const response = await axios.post(
                 'http://localhost:8000/api/send-tasks-for-appraisal/',
                 {},
                 {
                     headers: {
                         'Authorization': `Token ${authToken}`,
-                        'X-CSRFToken': csrfToken || '',
+                        'X-CSRFToken': csrfToken,  
                     },
                 }
             );
@@ -105,6 +101,7 @@ const EmployeeTasks: React.FC = () => {
             setNotification({ type: 'error', message: 'Failed to send tasks for appraisal. Please try again.' });
         }
     };
+
 
     return (
         <div className="container mt-5">

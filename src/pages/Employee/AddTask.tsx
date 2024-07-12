@@ -12,7 +12,8 @@ const AddTask: React.FC = () => {
     const [successMessage, setSuccessMessage] = useState('');
     
     const csrfToken = getCSRFToken();
-
+   console.log(csrfToken);
+   
    
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -25,7 +26,7 @@ const AddTask: React.FC = () => {
                 return;
             }
 
-            // Convert days to seconds (since DurationField can accept seconds)
+     
             const timeTakenInSeconds = timeTaken * 24 * 60 * 60;
 
             const response = await axios.post(
