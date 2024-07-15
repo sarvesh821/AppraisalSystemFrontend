@@ -1,6 +1,7 @@
 import React, { useState, FormEvent } from "react";
 import axios from "axios";
 import './Login.css';
+import { NavBar } from "../../components/Header/Navbar";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -36,6 +37,8 @@ const Login: React.FC = () => {
   };
 
     return (
+      <>
+      <NavBar />
         <div className="login-container">
             <form className="login-form" onSubmit={handleSubmit}>
                 <h2>Login</h2>
@@ -61,6 +64,7 @@ const Login: React.FC = () => {
                 <button type="submit" className="btn">LOGIN</button>
             </form>
         </div>
+      </>
     );
 };
 

@@ -1,50 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// import getCSRFToken from '../../utils/getCSRFToken';
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookie';
 import { fetchCSRFToken } from '../../utils/fetchCSRFToken';
+
 const EmployeeTasks: React.FC = () => {
     const [tasksToRate, setTasksToRate] = useState<any[]>([]);
     const [ratedTasks, setRatedTasks] = useState<any[]>([]);
     const [error, setError] = useState<string>('');
     const [employee, setEmployee] = useState<any>(null);
     const [notification, setNotification] = useState<{ type: 'success' | 'error', message: string } | null>(null);
-  
-   
-      useEffect(() => {
+
+    useEffect(() => {
         const initialize = async () => {
-            const csrfToken = await fetchCSRFToken(); // Fetch and store CSRF token
-            Cookies.set('csrftoken', csrfToken);
-
-           
-            const authToken = localStorage.getItem('authToken');
-            if (!authToken) {
-                console.error('No authToken found');
-                return;
-            }
-
             try {
-                const response = await axios.get('http://localhost:8000/api/employee-detail/', {
-                    headers: {
-                        'Authorization': `Token ${authToken}`,
-                    },
-                });
-                setEmployee(response.data);
-            } catch (error) {
-                console.error('Error fetching employee data:', error);
-            }
+                const csrfToken = await fetchCSRFToken();
+                Cookies.set('csrftoken', csrfToken);
 
-          
-            try {
-                const response = await axios.get('http://localhost:8000/api/employee-tasks/', {
-                    headers: {
-                        'Authorization': `Token ${authToken}`,
-                    },
-                });
-                setTasksToRate(response.data.tasks_to_rate);
-                setRatedTasks(response.data.rated_tasks);
+                const authToken = localStorage.getItem('authToken');
+                if (!authToken) {
+                    setError('No authToken found');
+                    return;
+                }
+
+                const [employeeResponse, tasksResponse] = await Promise.all([
+                    axios.get('http://localhost:8000/api/employee-detail/', {
+                        headers: {
+                            'Authorization': `Token ${authToken}`,
+                        },
+                    }),
+                    axios.get('http://localhost:8000/api/employee-tasks/', {
+                        headers: {
+                            'Authorization': `Token ${authToken}`,
+                        },
+                    }),
+                ]);
+
+                setEmployee(employeeResponse.data);
+                setTasksToRate(tasksResponse.data.tasks_to_rate);
+                setRatedTasks(tasksResponse.data.rated_tasks);
             } catch (error) {
-                console.error('Error fetching tasks:', error);
                 handleAxiosError(error);
             }
         };
@@ -54,7 +48,14 @@ const EmployeeTasks: React.FC = () => {
 
     const handleAxiosError = (error: any) => {
         if (axios.isAxiosError(error)) {
-            if (error.response?.status === 401) {
+            if(error.response?.status===404){
+                setError(error.response?.data?.message || 'No tasks available for appraisal.');
+                setTimeout(() => {
+                    setError('');
+                }, 1000);
+
+            }
+            else if (error.response?.status === 401) {
                 setError('Unauthorized. Please log in again.');
                 window.location.href = '/login';
             } else {
@@ -66,18 +67,16 @@ const EmployeeTasks: React.FC = () => {
     };
 
     const sendTasksForAppraisal = async () => {
-        const csrfToken = Cookies.get('csrftoken'); 
-      
-        
+        const csrfToken = Cookies.get('csrftoken');
         if (!csrfToken) {
-            console.error('CSRF token not found');
+            setError('CSRF token not found');
             return;
         }
 
         try {
             const authToken = localStorage.getItem('authToken');
             if (!authToken) {
-                console.error('No authToken found');
+                setError('No authToken found');
                 return;
             }
 
@@ -87,21 +86,27 @@ const EmployeeTasks: React.FC = () => {
                 {
                     headers: {
                         'Authorization': `Token ${authToken}`,
-                        'X-CSRFToken': csrfToken,  
+                        'X-CSRFToken': csrfToken,
                     },
                 }
             );
-
-            setNotification({ type: 'success', message: 'Tasks sent for appraisal successfully!' });
-            const updatedTasksToRate = tasksToRate.filter(task => !response.data.sent_task_ids.includes(task.id));
-            setTasksToRate(updatedTasksToRate);
-            console.log('Tasks sent for appraisal successfully', response.data);
+            console.log(response.status)
+            if (response.status === 200) {
+                // const updatedTasksToRate = tasksToRate.filter(task =>task.task_send==false);
+                setTasksToRate([]);
+                setNotification({ type: 'success', message: 'Tasks sent for appraisal successfully!' });
+                setError('');
+                console.log('Tasks sent for appraisal successfully', response.data);
+                setTimeout(() => {
+                    setNotification(null);
+                }, 1000);
+            } else {
+                setError('Failed to send tasks for appraisal. Please try again.');
+            }
         } catch (error) {
-            console.error('Error sending tasks for appraisal:', error);
-            setNotification({ type: 'error', message: 'Failed to send tasks for appraisal. Please try again.' });
+            handleAxiosError(error);
         }
     };
-
 
     return (
         <div className="container mt-5">
@@ -120,6 +125,9 @@ const EmployeeTasks: React.FC = () => {
                         <ul className="list-group list-group-flush">
                             {tasksToRate.map((task: any) => (
                                 <li key={task.id} className="list-group-item">
+                                    <div>
+                                        <strong>Title:</strong> {task.title}
+                                    </div>
                                     <div>
                                         <strong>Description:</strong> {task.description}
                                     </div>
@@ -147,6 +155,9 @@ const EmployeeTasks: React.FC = () => {
                         <ul className="list-group list-group-flush">
                             {ratedTasks.map((task: any) => (
                                 <li key={task.id} className="list-group-item">
+                                       <div>
+                                        <strong>Title:</strong> {task.title}
+                                    </div>
                                     <div>
                                         <strong>Description:</strong> {task.description}
                                     </div>

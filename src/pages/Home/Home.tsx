@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { NavBar } from '../../components/Header/Navbar';
 
 const Home: React.FC = () => {
   return (
+    <>
+    <NavBar />
     <div className="container shadow p-3 mb-5 bg-white rounded" style={{ marginTop: "7rem" }}>
       <div className="row justify-content-center">
         <div className="col-12 text-center">
@@ -18,6 +21,7 @@ const Home: React.FC = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

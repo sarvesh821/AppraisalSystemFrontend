@@ -5,6 +5,9 @@ import './AdminSidebar.css'
 import { MdPersonAdd } from "react-icons/md";
 import axios from "axios";
 
+import { AdminNavBar } from "../Header/AdminNavbar";
+
+
 interface MenuItem {
   path: string;
   name: string;
@@ -64,6 +67,8 @@ const EmployeeSidebar: React.FC<EmployeeSidebarProps> = ({ children }) => {
     }
   };
   return (
+    <>
+    <AdminNavBar />
     <div className="container-flex">
        <div style={{width: "200px" }} className="sidebar">
              
@@ -84,6 +89,7 @@ const EmployeeSidebar: React.FC<EmployeeSidebarProps> = ({ children }) => {
            </div>
            <main>{children}</main>
     </div>
+    </>
   );
 };
 

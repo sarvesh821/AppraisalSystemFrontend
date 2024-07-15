@@ -2,7 +2,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 
-import Login from '../pages/Home/Login';
 
 import Dashboard from '../pages/Admin/Dashboard';
 import Rating from '../pages/Admin/Rating';
@@ -11,8 +10,12 @@ import AdminSidebar from '../components/sideBars/AdminSidebar';
 import Register from '../pages/Admin/Register';
 import EmployeeTask from '../pages/Admin/EmployeeTask';
 
+
 const EmployeeDashboard = () => {
   return (
+    <>
+    
+    
     <AdminSidebar>
       <Routes>
         <Route path="/" element={<Dashboard />} />
@@ -25,6 +28,7 @@ const EmployeeDashboard = () => {
         <Route path='logout' element={<Navigate to="/login" replace />} />
       </Routes>
     </AdminSidebar>
+    </>
   );
 };
 

@@ -6,6 +6,7 @@ import axios from 'axios';
 
 interface Task {
     id: number;
+    title:string;
     description: string;
     time_taken: string; 
     is_appraisable: boolean;
@@ -98,13 +99,14 @@ const EmployeeDetail = () => {
                     <Col key={task.id} md={4} className="mb-3">
                         <div className="card">
                             <div className="card-body">
-                                <h5 className="card-title">{task.description}</h5>
+                            <h5 className="card-title">{task.title}</h5>
+                            <p><strong>Description:</strong> {task.description}</p>
                                 <p><strong>Time Taken:</strong> {task.time_taken}</p>
                                 <p><strong>Appraisable:</strong> {task.is_appraisable ? 'Yes' : 'No'}</p>
                                 <Form.Control
                                     type="number"
                                     min="0"
-                                    max="5"
+                                    max="10"
                                     value={task.rating}
                                     onChange={(e) => handleTaskRatingChange(task.id, parseInt(e.target.value))}
                                 />
@@ -127,7 +129,7 @@ const EmployeeDetail = () => {
                                 <Form.Control
                                     type="number"
                                     min="0"
-                                    max="5"
+                                    max="10"
                                     value={attributeRatings[index]}
                                     onChange={(e) => handleAttributeRatingChange(index, parseInt(e.target.value))}
                                 />
