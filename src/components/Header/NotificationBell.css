@@ -1,0 +1,31 @@
+.notification-bell {
+    position: relative;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+}
+
+.notification-dropdown {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: 1000;
+    display: block;
+    background: white;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem;
+    width: 300px; 
+    max-height: 400px; 
+    overflow-y: auto; 
+    /* transform: translateX(-40%); */
+}
+
+.dropdown-header {
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #e9ecef;
+    font-weight: bold;
+    margin-bottom: 12px;
+}

@@ -3,6 +3,8 @@ import {  FaPlus, FaSignOutAlt, FaTh, FaUserAlt,FaTasks } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import './EmployeeSidebar.css';
+import { NavBar } from "../Header/Navbar";
+import { EmployeeNavBar } from "../Header/EmployeeNavbar";
 
 interface MenuItem {
   path: string;
@@ -65,6 +67,8 @@ const EmployeeSidebar: React.FC<EmployeeSidebarProps> = ({ children }) => {
   };
 
   return (
+    <>
+    <EmployeeNavBar />
     <div className="container-flex">
       <div style={{ width: "200px" }} className="sidebar">
         {menuItems.map((item, index) => (
@@ -80,6 +84,7 @@ const EmployeeSidebar: React.FC<EmployeeSidebarProps> = ({ children }) => {
       </div>
       <main>{children}</main>
     </div>
+    </>
   );
 };
 

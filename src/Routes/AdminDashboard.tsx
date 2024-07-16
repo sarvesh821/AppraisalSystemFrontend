@@ -10,11 +10,15 @@ import Employees from '../pages/Admin/Employees';
 import AdminSidebar from '../components/sideBars/AdminSidebar';
 import Register from '../pages/Admin/Register';
 import EmployeeTask from '../pages/Admin/EmployeeTask';
+import ProtectedRoute from './ProtectedRoute';
 
 const EmployeeDashboard = () => {
   return (
+    <>
+    
+    
     <AdminSidebar>
-      <Routes>
+    <ProtectedRoute path="/">
         <Route path="/" element={<Dashboard />} />
         <Route path="dashboard" element={<Dashboard  />} />
         <Route path="register" element={<Register />} />
@@ -23,8 +27,9 @@ const EmployeeDashboard = () => {
         <Route path="rating/employee/:id" element={<EmployeeTask/>} />
         <Route path="employees" element={<Employees/>}/>
         <Route path='logout' element={<Navigate to="/login" replace />} />
-      </Routes>
+        </ProtectedRoute>
     </AdminSidebar>
+    </>
   );
 };
 

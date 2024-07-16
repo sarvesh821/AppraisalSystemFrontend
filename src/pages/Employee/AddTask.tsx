@@ -1,20 +1,16 @@
-// AddTask.tsx
-
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import getCSRFToken from '../../utils/getCSRFToken';
 import './AddTask.css';
 
 const AddTask: React.FC = () => {
+    const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [timeTaken, setTimeTaken] = useState(0); // In days
     const [isAppraisable, setIsAppraisable] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
     
     const csrfToken = getCSRFToken();
-   console.log(csrfToken);
-   
-   
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -26,12 +22,12 @@ const AddTask: React.FC = () => {
                 return;
             }
 
-     
             const timeTakenInSeconds = timeTaken * 24 * 60 * 60;
 
             const response = await axios.post(
                 'http://localhost:8000/api/create-task/',
                 {
+                    title, 
                     description,
                     time_taken: timeTakenInSeconds,
                     is_appraisable: isAppraisable
@@ -47,19 +43,19 @@ const AddTask: React.FC = () => {
             setSuccessMessage('Task added successfully!');
             console.log('Task added successfully', response.data);
 
+           
+            setTitle('');
             setDescription('');
             setTimeTaken(0);
             setIsAppraisable(false);
 
             setTimeout(() => {
                 setSuccessMessage('');
-            }, 3000);
+            }, 1000);
         } catch (error) {
             console.error('Error adding task:', error);
         }
     };
-
-  
 
     return (
         <div className="form-container">
@@ -69,6 +65,17 @@ const AddTask: React.FC = () => {
                 </div>
             )}
             <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label htmlFor="title">Title:</label>
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        required
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                    />
+                </div>
                 <div className="form-group">
                     <label htmlFor="description">Description:</label>
                     <textarea
@@ -103,7 +110,6 @@ const AddTask: React.FC = () => {
                 </div>
                 <button type="submit">Add Task</button>
             </form>
-          
         </div>
     );
 };
