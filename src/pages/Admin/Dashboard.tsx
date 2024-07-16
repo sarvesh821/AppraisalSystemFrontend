@@ -28,7 +28,7 @@ const AdminMainDashboard: React.FC = () => {
                 <div className="stat-card">
                     <FaUsers className="stat-icon" />
                     <div className="stat-info">
-                        <h3>Users</h3>
+                        <h3>Employees</h3>
                         <p>{userData}</p>
                     </div>
                 </div>

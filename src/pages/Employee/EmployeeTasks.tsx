@@ -6,6 +6,7 @@ import { fetchCSRFToken } from '../../utils/fetchCSRFToken';
 const EmployeeTasks: React.FC = () => {
     const [tasksToRate, setTasksToRate] = useState<any[]>([]);
     const [ratedTasks, setRatedTasks] = useState<any[]>([]);
+    const [attributeRatings, setAttributeRatings] = useState<any[]>([]);
     const [error, setError] = useState<string>('');
     const [employee, setEmployee] = useState<any>(null);
     const [notification, setNotification] = useState<{ type: 'success' | 'error', message: string } | null>(null);
@@ -22,7 +23,7 @@ const EmployeeTasks: React.FC = () => {
                     return;
                 }
 
-                const [employeeResponse, tasksResponse] = await Promise.all([
+                const [employeeResponse, tasksResponse,attributesResponse] = await Promise.all([
                     axios.get('http://localhost:8000/api/employee-detail/', {
                         headers: {
                             'Authorization': `Token ${authToken}`,
@@ -33,11 +34,26 @@ const EmployeeTasks: React.FC = () => {
                             'Authorization': `Token ${authToken}`,
                         },
                     }),
+                    axios.get('http://localhost:8000/api/employee-attributes/', {
+                        headers: {
+                            'Authorization': `Token ${authToken}`,
+                        },
+                    }),
                 ]);
 
                 setEmployee(employeeResponse.data);
                 setTasksToRate(tasksResponse.data.tasks_to_rate);
                 setRatedTasks(tasksResponse.data.rated_tasks);
+                const ratingsArray = Object.keys(attributesResponse.data).map(key => ({
+                    attribute: key,
+                    rating: attributesResponse.data[key]
+                }));
+                console.log(ratingsArray);
+                
+                setAttributeRatings(ratingsArray);
+                
+                console.log(attributeRatings);
+                
             } catch (error) {
                 handleAxiosError(error);
             }
@@ -167,6 +183,17 @@ const EmployeeTasks: React.FC = () => {
                                     <div>
                                         <strong>Rating:</strong> {task.rating}
                                     </div>
+                                </li>
+                            ))}
+                             {attributeRatings.map((task: any,index) => (
+                                <li key={index} className="list-group-item">
+                                       <div>
+                                        <strong>Title:</strong> {task.attribute}
+                                    </div>
+                                    <div>
+                                        <strong>Description:</strong> {task.rating}
+                                    </div>
+                                    
                                 </li>
                             ))}
                         </ul>

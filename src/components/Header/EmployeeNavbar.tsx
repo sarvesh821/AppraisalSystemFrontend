@@ -1,6 +1,6 @@
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-
+import { FaBell } from 'react-icons/fa';
 export function EmployeeNavBar() {
     return (
         <Navbar expand="lg" className="border-bottom shadow-sm" fixed="top" style={{ padding: '0 20px', backgroundColor: "white" }}>
@@ -14,7 +14,7 @@ export function EmployeeNavBar() {
                 </Navbar.Brand>
                 <Nav className="ml-auto d-flex align-items-center flex-row">
                     <Nav.Link href='#' className="d-flex align-items-center">
-                        <span className="icon fs-5">&#128276;</span>
+                    <FaBell size={22} color="grey"/>
                     </Nav.Link>
                     <Nav.Link as={Link} to="/employeedashboard/profile" className="d-flex align-items-center ml-3">
                         <span className="icon">
