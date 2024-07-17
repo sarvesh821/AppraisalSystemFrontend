@@ -62,6 +62,7 @@ main{
 }
 .icon, .link_text{
     font-size: 17px;
+    font-weight: 400;
 }
 .icon{
     color: #4D6CD9;

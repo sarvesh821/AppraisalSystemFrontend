@@ -101,7 +101,7 @@ const EmployeeDetail = () => {
                             <div className="card-body">
                             <h5 className="card-title">{task.title}</h5>
                             <p><strong>Description:</strong> {task.description}</p>
-                                <p><strong>Time Taken:</strong> {task.time_taken}</p>
+                                <p><strong>Time Taken:</strong> {task.time_taken} days</p>
                                 <p><strong>Appraisable:</strong> {task.is_appraisable ? 'Yes' : 'No'}</p>
                                 <Form.Control
                                     type="number"

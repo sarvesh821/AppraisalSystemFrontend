@@ -16,6 +16,7 @@ main{
     position: fixed;
     background: white;
     color: #696969;
+    font-weight: 700;
     height: 85vh;
     width: 70px;
     transition: all 0.5s;
@@ -63,6 +64,7 @@ main{
 }
 .icon, .link_text{
     font-size: 17px;
+    font-weight: 400;
 }
 .icon{
     color: #4D6CD9;

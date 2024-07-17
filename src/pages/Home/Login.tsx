@@ -1,7 +1,7 @@
 import React, { useState, FormEvent } from "react";
 import axios from "axios";
 import './Login.css';
-import { NavBar } from "../../components/Header/Navbar";
+
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -38,23 +38,28 @@ const Login: React.FC = () => {
 
     return (
       <>
-      <NavBar />
-        <div className="login-container">
+      
+        <div className="login-container d-flex flex-column ">
+         <div className="web-image mb-6">
+            <img src="https://beesheetsv2.beehyv.com/assets/images/logo.png" alt="Beehyv-Image" height={"100px"} />
+         </div>
             <form className="login-form" onSubmit={handleSubmit}>
                 <h2>Login</h2>
                 <div className="form-group">
-                    <label>Email</label>
+                   
                     <input
                         type="text"
+                        placeholder="Email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
                     />
                 </div>
                 <div className="form-group">
-                    <label>Password</label>
+                  
                     <input
                         type={showPassword ? "text" : "password"}
+                        placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
