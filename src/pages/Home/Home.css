@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton+SC&family=Fjalla+One&display=swap');
+.main-body {
+    height: 100vh;
+    width: 100vw;
+    background-image: url('https://images.vexels.com/content/100549/preview/abstract-design-background-vector-9436c9.png');
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .title-box{
+    margin-top: 8%;
+    margin-right: 0;
+     margin-left: 65%;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     flex-direction: column;
+  }
+  .title {
+    color: #4D6CD9;
+    font-size: 3rem;
+    margin: 20px;
+    font-family: "Fjalla One", sans-serif;
+    font-weight: 800;
+    font-style: italic;
+    letter-spacing: 3px;
+
+  }
+ 
+  .appraisal-button {
+    width: 260px;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, rgba(0, 98, 0, 0.8) 30%, rgba(0, 0, 255, 0.8) 100%);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 10%;
+    right: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .appraisal-button::after {
+    content: '→';
+    margin-left: 10px;
+    font-size: 1.5rem;
+  }
+  .appraisal-button:hover {
+    background-color: #0056b3;
+  }
+  
+

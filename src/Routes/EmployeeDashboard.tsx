@@ -4,11 +4,12 @@ import AddTask from '../pages/Employee/AddTask';
 import Profile from '../pages/Employee/Profile';
 import EmployeeSidebar from '../components/sideBars/EmployeeSidebar';
 import EmployeeTasks from '../pages/Employee/EmployeeTasks';
+import ProtectedRoute from './ProtectedRoute';
 
 const EmployeeDashboard = () => {
   return (
     <EmployeeSidebar>
-      <Routes>
+      <ProtectedRoute path="/">
         <Route path="/" element={<Dashboard />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/addtask" element={<AddTask />} />
@@ -17,7 +18,7 @@ const EmployeeDashboard = () => {
           element={<Profile />}
         />
         <Route path='/tasks' element={<EmployeeTasks />} />
-      </Routes>
+        </ProtectedRoute>
     </EmployeeSidebar>
   );
 };
