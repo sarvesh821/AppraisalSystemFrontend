@@ -102,9 +102,10 @@ const EmployeeDetail = () => {
                             <h5 className="card-title">{task.title}</h5>
                             <p><strong>Description:</strong> {task.description}</p>
                                 <p><strong>Time Taken:</strong> {task.time_taken} days</p>
-                                <p><strong>Appraisable:</strong> {task.is_appraisable ? 'Yes' : 'No'}</p>
+                                <p><strong>Appraisable:</strong> {task.is_appraisable ? 'Yes' : 'No'}</p><br />
                                 <Form.Control
                                     type="number"
+                                    placeholder='Rate out of 10'
                                     min="0"
                                     max="10"
                                     value={task.rating}
