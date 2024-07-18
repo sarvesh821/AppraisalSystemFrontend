@@ -14,7 +14,7 @@ const EmployeeDashboard = () => {
         <Route path="/addtask" element={<AddTask />} />
         <Route
           path="/profile"
-          element={<Profile first_name={''} last_name={''} designation={''} email={''} contact_no={''} date_of_joining={''}  />}
+          element={<Profile />}
         />
         <Route path='/tasks' element={<EmployeeTasks />} />
       </Routes>
