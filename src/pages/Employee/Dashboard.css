@@ -1,27 +1,22 @@
-/* Dashboard.css */
 
-.dashboard-container {
-    padding: 20px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 20px;
-}
+
+
 
 .user-info {
-    background-color: #fff;
+    background: linear-gradient(135deg, rgba(0, 98, 0, 0.8) 30%, rgba(0, 0, 255, 0.8) 100%);
+    margin-top: 1%;
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   
 }
 
 .user-info h2 {
     margin-bottom: 10px;
-    color: #333;
+    color: white;
 }
 
 .user-info p {
     margin-bottom: 8px;
-    color: #666;
+    color: white;
 }

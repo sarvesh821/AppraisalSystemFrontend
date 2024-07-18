@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './Dashboard.css'
+import './Dashboard.css';
 
 interface User {
   first_name: string;
   last_name: string;
   designation: string;
-  email: string;
-  contact_no: string;
-  date_of_joining: string;
+ 
 }
 
 const Dashboard: React.FC = () => {
   const [employeeData, setEmployeeData] = useState<User | null>(null);
+  const [currentDate, setCurrentDate] = useState<string>('');
 
   useEffect(() => {
     const fetchEmployeeData = async () => {
@@ -30,6 +29,11 @@ const Dashboard: React.FC = () => {
         });
 
         setEmployeeData(response.data);
+
+      
+        const now = new Date();
+        const formattedDate = formatDate(now);
+        setCurrentDate(formattedDate);
       } catch (error) {
         console.error('Error fetching employee data:', error);
       }
@@ -38,21 +42,28 @@ const Dashboard: React.FC = () => {
     fetchEmployeeData();
   }, []);
 
+ 
+  const formatDate = (date: Date): string => {
+    const options: Intl.DateTimeFormatOptions = {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    };
+    return date.toLocaleDateString('en-GB', options);
+  };
+
   if (!employeeData) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="dashboard-container">
+   
       <div className="user-info">
         <h2>Welcome, {employeeData.first_name} {employeeData.last_name}!</h2>
-        <p><strong>Designation:</strong> {employeeData.designation}</p>
-        <p><strong>Email:</strong> {employeeData.email}</p>
-        <p><strong>Contact:</strong> {employeeData.contact_no}</p>
-        <p><strong>Date of Joining:</strong> {employeeData.date_of_joining}</p>
+        <p>{employeeData.designation}</p>
+        <p>{currentDate}</p>
       </div>
-     
-    </div>
+   
   );
 };
 

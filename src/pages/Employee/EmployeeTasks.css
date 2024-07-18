@@ -43,8 +43,7 @@
   }
   .gridItem{
     padding: 10px;
-    border: 1px solid #ccc;
-    /* border-Radius: 5px; */
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;;
     background: #fff;
     text-align: center;
   }
@@ -58,6 +57,7 @@
   
   .table thead th {
     position: sticky;
+    
     top: 0;
     background-color: white;
     z-index: 1; 

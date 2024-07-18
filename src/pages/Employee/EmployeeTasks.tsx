@@ -6,15 +6,12 @@ import "./EmployeeTasks.css";
 
 const EmployeeTasks: React.FC = () => {
   const [showAttributes, setShowAttributes] = useState(false);
-  const [tasksToRate, setTasksToRate] = useState<any[]>([]);
+ 
   const [ratedTasks, setRatedTasks] = useState<any[]>([]);
   const [attributeRatings, setAttributeRatings] = useState<any[]>([]);
   const [error, setError] = useState<string>("");
   const [employee, setEmployee] = useState<any>(null);
-  const [notification, setNotification] = useState<{
-    type: "success" | "error";
-    message: string;
-  } | null>(null);
+
   const attributesSectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -49,7 +46,7 @@ const EmployeeTasks: React.FC = () => {
           ]);
 
         setEmployee(employeeResponse.data);
-        setTasksToRate(tasksResponse.data.tasks_to_rate);
+        
         setRatedTasks(tasksResponse.data.rated_tasks);
 
         const ratingsArray = Object.keys(attributesResponse.data).map(
@@ -91,48 +88,7 @@ const EmployeeTasks: React.FC = () => {
     }
   };
 
-  const sendTasksForAppraisal = async () => {
-    const csrfToken = Cookies.get("csrftoken");
-    if (!csrfToken) {
-      setError("CSRF token not found");
-      return;
-    }
-
-    try {
-      const authToken = localStorage.getItem("authToken");
-      if (!authToken) {
-        setError("No authToken found");
-        return;
-      }
-
-      const response = await axios.post(
-        "http://localhost:8000/api/send-tasks-for-appraisal/",
-        {},
-        {
-          headers: {
-            Authorization: `Token ${authToken}`,
-            "X-CSRFToken": csrfToken,
-          },
-        }
-      );
-
-      if (response.status === 200) {
-        setTasksToRate([]);
-        setNotification({
-          type: "success",
-          message: "Tasks sent for appraisal successfully!",
-        });
-        setError("");
-        setTimeout(() => {
-          setNotification(null);
-        }, 1000);
-      } else {
-        setError("Failed to send tasks for appraisal. Please try again.");
-      }
-    } catch (error) {
-      handleAxiosError(error);
-    }
-  };
+  
 
   const handleButtonClick = () => {
     setShowAttributes((prevShowAttributes) => {
@@ -147,69 +103,22 @@ const EmployeeTasks: React.FC = () => {
 
   return (
     <div className="container mt-2">
-      {error && <div className="alert alert-danger">{error}</div>}
-      {notification && (
-        <div
-          className={`alert alert-${
-            notification.type === "success" ? "success" : "danger"
-          }`}
-          role="alert"
-        >
-          {notification.message}
-        </div>
-      )}
+    
       <div className="col"  >
-        {/* <div className="col-md-6">
-          <div className="card">
-            <div className="card-header">
-              <h2 className="card-title">Tasks to Rate</h2>
-            </div>
-            <div className="table-responsive">
-              <table className="table table-striped">
-                <thead>
-                  <tr>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Time Taken</th>
-                    <th>Appraisable</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {tasksToRate.map((task: any) => (
-                    <tr key={task.id}>
-                      <td>{task.title}</td>
-                      <td>{task.description}</td>
-                      <td>{task.time_taken} days</td>
-                      <td>{task.is_appraisable ? "Yes" : "No"}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            {employee && employee.has_completed_one_year === true && (
-              <button
-                onClick={sendTasksForAppraisal}
-                className="mt-3 btn btn-primary"
-                style={{borderRadius:'0px'}}
-              >
-                Send Tasks for Appraisal
-              </button>
-            )}
-          </div>
-        </div> */}
+       
         <div className="col-md-12">
           <div className="card">
-            <div className="card-header ">
+            <div className="card-header">
               <h2 className="card-title ">Rated Tasks</h2>
             </div>
             <div className="table-responsive">
               <table className="table table-striped">
                 <thead>
                   <tr>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Time Taken</th>
-                    <th>Rating</th>
+                    <th style={{ width: '25%' }}>Title</th>
+                    <th style={{ width: '35%' }}>Description</th>
+                    <th style={{ width: '20%' }}>Time Taken</th>
+                    <th style={{ width: '20%' }}>Rating</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -230,7 +139,7 @@ const EmployeeTasks: React.FC = () => {
       <div className="container">
         {showAttributes && (
           <div ref={attributesSectionRef} className="attributesSection">
-            <h2>Attributes</h2>
+            <h2 style={{backgroundColor:"#4D6CD9",height:"43px", borderRadius:"5px",padding:"8px",color:"white",marginBottom:"12px"}}>Attributes</h2>
             <div className="gridContainer">
               {attributeRatings.slice(1,-1).map(
                 (attr, index) =>
