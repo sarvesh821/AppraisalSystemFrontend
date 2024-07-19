@@ -9,12 +9,12 @@ interface Employee {
     id: number;
     username: string;
   };
-  date_of_joining: string; // ISO string format
-  date_of_birth: string; // ISO string format
+  date_of_joining: string;
+  date_of_birth: string;
   location: string;
   designation: string;
   contact_no: string;
-  role: 'EMPLOYEE' | 'ADMIN';
+  role: "EMPLOYEE" | "ADMIN";
   email: string;
   first_name: string;
   last_name: string;
@@ -26,25 +26,25 @@ interface Task {
   employee: Employee;
   title: string;
   description: string;
-  time_taken: number; // Assuming time_taken is in days
+  time_taken: number;
   is_appraisable: boolean;
   task_send: boolean;
-  rating?: number; // Optional because it can be null
+  rating?: number;
 }
 
 interface Attributes {
   id: number;
   employee: Employee;
-  time_management?: number; // Optional because it can be null
-  communication?: number; // Optional because it can be null
-  creativity?: number; // Optional because it can be null
-  respect_of_deadlines?: number; // Optional because it can be null
-  ability_to_plan?: number; // Optional because it can be null
-  problem_solving?: number; // Optional because it can be null
-  passion_to_work?: number; // Optional because it can be null
-  confidence?: number; // Optional because it can be null
-  adaptable?: number; // Optional because it can be null
-  learning_power?: number; // Optional because it can be null
+  time_management?: number;
+  communication?: number;
+  creativity?: number;
+  respect_of_deadlines?: number;
+  ability_to_plan?: number;
+  problem_solving?: number;
+  passion_to_work?: number;
+  confidence?: number;
+  adaptable?: number;
+  learning_power?: number;
   all_attributes_not_none: () => boolean;
 }
 
@@ -55,9 +55,11 @@ interface AttributeRating {
 
 const EmployeeTasks: React.FC = () => {
   const [showAttributes, setShowAttributes] = useState(false);
- 
+
   const [ratedTasks, setRatedTasks] = useState<Task[]>([]);
-  const [attributeRatings, setAttributeRatings] = useState<AttributeRating[]>([]);
+  const [attributeRatings, setAttributeRatings] = useState<AttributeRating[]>(
+    []
+  );
   const [error, setError] = useState<string>("");
   const [employee, setEmployee] = useState<Employee | null>(null);
 
@@ -82,25 +84,32 @@ const EmployeeTasks: React.FC = () => {
                 Authorization: `Token ${authToken}`,
               },
             }),
-            axios.get<{ rated_tasks: Task[] }>("http://localhost:8000/api/employee-tasks/", {
-              headers: {
-                Authorization: `Token ${authToken}`,
-              },
-            }),
-            axios.get<Attributes>("http://localhost:8000/api/employee-attributes/", {
-              headers: {
-                Authorization: `Token ${authToken}`,
-              },
-            }),
+            axios.get<{ rated_tasks: Task[] }>(
+              "http://localhost:8000/api/employee-tasks/",
+              {
+                headers: {
+                  Authorization: `Token ${authToken}`,
+                },
+              }
+            ),
+            axios.get<Attributes>(
+              "http://localhost:8000/api/employee-attributes/",
+              {
+                headers: {
+                  Authorization: `Token ${authToken}`,
+                },
+              }
+            ),
           ]);
 
         setEmployee(employeeResponse.data);
-        
+
         setRatedTasks(tasksResponse.data.rated_tasks);
 
-        const ratingsArray: AttributeRating[] = Object.keys(attributesResponse.data).map(
-          (key) => {
-           
+        const ratingsArray: AttributeRating[] = Object.keys(
+          attributesResponse.data
+        )
+          .map((key) => {
             const rating = attributesResponse.data[key as keyof Attributes];
             if (typeof rating === "number") {
               return {
@@ -108,9 +117,9 @@ const EmployeeTasks: React.FC = () => {
                 rating: rating,
               };
             }
-            return null; 
-          }
-        ).filter((rating): rating is AttributeRating => rating !== null);
+            return null;
+          })
+          .filter((rating): rating is AttributeRating => rating !== null);
 
         setAttributeRatings(ratingsArray);
       } catch (error) {
@@ -144,8 +153,6 @@ const EmployeeTasks: React.FC = () => {
     }
   };
 
-  
-
   const handleButtonClick = () => {
     setShowAttributes((prevShowAttributes) => {
       if (!prevShowAttributes && attributesSectionRef.current) {
@@ -159,9 +166,7 @@ const EmployeeTasks: React.FC = () => {
 
   return (
     <div className="container mt-2">
-    
-      <div className="col"  >
-       
+      <div className="col">
         <div className="col-md-12">
           <div className="card">
             <div className="card-header">
@@ -171,10 +176,10 @@ const EmployeeTasks: React.FC = () => {
               <table className="table table-striped">
                 <thead>
                   <tr>
-                    <th style={{ width: '25%' }}>Title</th>
-                    <th style={{ width: '35%' }}>Description</th>
-                    <th style={{ width: '20%' }}>Time Taken</th>
-                    <th style={{ width: '20%' }}>Rating</th>
+                    <th style={{ width: "25%" }}>Title</th>
+                    <th style={{ width: "35%" }}>Description</th>
+                    <th style={{ width: "20%" }}>Time Taken</th>
+                    <th style={{ width: "20%" }}>Rating</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -195,9 +200,20 @@ const EmployeeTasks: React.FC = () => {
       <div className="container">
         {showAttributes && (
           <div ref={attributesSectionRef} className="attributesSection">
-            <h2 style={{backgroundColor:"#4D6CD9",height:"43px", borderRadius:"5px",padding:"8px",color:"white",marginBottom:"12px"}}>Attributes</h2>
+            <h2
+              style={{
+                backgroundColor: "#4D6CD9",
+                height: "43px",
+                borderRadius: "5px",
+                padding: "8px",
+                color: "white",
+                marginBottom: "12px",
+              }}
+            >
+              Attributes
+            </h2>
             <div className="gridContainer">
-              {attributeRatings.slice(1,-1).map(
+              {attributeRatings.slice(1, -1).map(
                 (attr, index) =>
                   attr.rating !== 0 && (
                     <div key={index} className="gridItem">

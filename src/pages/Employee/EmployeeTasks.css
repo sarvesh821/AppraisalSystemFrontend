@@ -1,64 +1,59 @@
 .container {
-    /* padding: 20px; */
-    font-family: Arial, sans-serif;
-    max-width: 100%;
-    
-    
-  }
-  
-  .fixedButton {
-    
-    position:fixed;
-    bottom:20px;
-    right: 20px;
-    padding: 10px 20px;
-    width: 20%;
-    background-color: transparent;
-   margin-right: 30%;
-    color: #fff;
-    border: none;
-    border-Radius: 5px;
-    cursor: pointer;
-    color: gray;
-  }
-  .fixedButton:hover{
-    background-color: transparent;
-  }
-  .attributesSection {
-    transition: 4s;
-    margin-Top: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-Radius: 10px;
-    background: #f9f9f9;
- 
-  }
-  .attributeItem {
-    margin-Bottom: 10px;
-  }
-  .gridContainer {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-  }
-  .gridItem{
-    padding: 10px;
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;;
-    background: #fff;
-    text-align: center;
-  }
+  /* padding: 20px; */
+  font-family: Arial, sans-serif;
+  max-width: 100%;
+}
 
+.fixedButton {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  width: 20%;
+  background-color: transparent;
+  margin-right: 30%;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: gray;
+}
+.fixedButton:hover {
+  background-color: transparent;
+}
+.attributesSection {
+  transition: 4s;
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: #f9f9f9;
+}
+.attributeItem {
+  margin-bottom: 10px;
+}
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.gridItem {
+  padding: 10px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  background: #fff;
+  text-align: center;
+}
 
-  .table-responsive {
-    max-height: 500px; 
-    overflow-y: auto;
-    display: block;
-  }
-  
-  .table thead th {
-    position: sticky;
-    
-    top: 0;
-    background-color: white;
-    z-index: 1; 
-  }
+.table-responsive {
+  max-height: 500px;
+  overflow-y: auto;
+  display: block;
+}
+
+.table thead th {
+  position: sticky;
+
+  top: 0;
+  background-color: white;
+  z-index: 1;
+}

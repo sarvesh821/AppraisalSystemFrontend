@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
-import axios from 'axios';
-import Cookies from "js-cookie";
+import React, { useState, useEffect } from "react";
+import { Modal, Button, Form } from "react-bootstrap";
+import axios from "axios";
+
 interface Employee {
   id: number;
   first_name: string;
@@ -19,7 +19,12 @@ interface EditEmployeeModalProps {
   onSave: (updatedEmployee: Employee) => void;
 }
 
-const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({ show, handleClose, employee, onSave }) => {
+const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({
+  show,
+  handleClose,
+  employee,
+  onSave,
+}) => {
   const [formData, setFormData] = useState<Employee | null>(employee);
 
   useEffect(() => {
@@ -34,17 +39,18 @@ const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({ show, handleClose
       });
     }
   };
-  
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (formData) {
-      axios.put(`http://127.0.0.1:8000/api/employees/${formData.id}/`, formData)
-        .then(response => {
+      axios
+        .put(`http://127.0.0.1:8000/api/employees/${formData.id}/`, formData)
+        .then((response) => {
           onSave(response.data);
           handleClose();
         })
-        .catch(error => {
-          console.error('Error updating employee:', error);
+        .catch((error) => {
+          console.error("Error updating employee:", error);
         });
     }
   };
@@ -61,7 +67,7 @@ const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({ show, handleClose
             <Form.Control
               type="text"
               name="first_name"
-              value={formData?.first_name || ''}
+              value={formData?.first_name || ""}
               onChange={handleChange}
             />
           </Form.Group>
@@ -70,7 +76,7 @@ const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({ show, handleClose
             <Form.Control
               type="text"
               name="last_name"
-              value={formData?.last_name || ''}
+              value={formData?.last_name || ""}
               onChange={handleChange}
             />
           </Form.Group>
@@ -79,7 +85,7 @@ const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({ show, handleClose
             <Form.Control
               type="text"
               name="designation"
-              value={formData?.designation || ''}
+              value={formData?.designation || ""}
               onChange={handleChange}
             />
           </Form.Group>
@@ -88,7 +94,7 @@ const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({ show, handleClose
             <Form.Control
               type="date"
               name="date_of_joining"
-              value={formData?.date_of_joining || ''}
+              value={formData?.date_of_joining || ""}
               onChange={handleChange}
             />
           </Form.Group>
@@ -97,7 +103,7 @@ const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({ show, handleClose
             <Form.Control
               type="email"
               name="email"
-              value={formData?.email || ''}
+              value={formData?.email || ""}
               onChange={handleChange}
             />
           </Form.Group>
@@ -106,7 +112,7 @@ const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({ show, handleClose
             <Form.Control
               type="text"
               name="contact_no"
-              value={formData?.contact_no || ''}
+              value={formData?.contact_no || ""}
               onChange={handleChange}
             />
           </Form.Group>

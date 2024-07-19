@@ -27,10 +27,10 @@ const RegisterEmployee: React.FC = () => {
       [name]: value,
     });
   };
-  const token = localStorage.getItem('authToken');
+  const token = localStorage.getItem("authToken");
   if (!token) {
-      console.error('No auth token found');
-      return;
+    console.error("No auth token found");
+    return;
   }
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,9 +42,8 @@ const RegisterEmployee: React.FC = () => {
         formData,
         {
           headers: {
-            'Authorization': `Token ${token}`,  
+            Authorization: `Token ${token}`,
           },
-          
         }
       );
       setSuccessMessage("Employee Registered Sucessfully!");
@@ -62,8 +61,8 @@ const RegisterEmployee: React.FC = () => {
       firstName: "",
       lastName: "",
       dateOfJoining: "",
-      dateOfBirth:"",
-      location:"",
+      dateOfBirth: "",
+      location: "",
       designation: "",
       contactNo: "",
       role: "",
@@ -78,7 +77,7 @@ const RegisterEmployee: React.FC = () => {
           {successMessage}
         </div>
       )}
-      <h2 style={{color:"#17a2b8;"}}>Register Employee</h2>
+      <h2 style={{ color: "#17a2b8;" }}>Register Employee</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="username">Username:</label>
