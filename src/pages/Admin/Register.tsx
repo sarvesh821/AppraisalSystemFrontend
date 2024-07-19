@@ -27,7 +27,11 @@ const RegisterEmployee: React.FC = () => {
       [name]: value,
     });
   };
-
+  const token = localStorage.getItem('authToken');
+  if (!token) {
+      console.error('No auth token found');
+      return;
+  }
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -35,7 +39,13 @@ const RegisterEmployee: React.FC = () => {
       console.log(formData);
       const response = await axios.post(
         "http://localhost:8000/api/register-employee/",
-        formData
+        formData,
+        {
+          headers: {
+            'Authorization': `Token ${token}`,  
+          },
+          
+        }
       );
       setSuccessMessage("Employee Registered Sucessfully!");
       console.log("Employee registered successfully:", response.data);

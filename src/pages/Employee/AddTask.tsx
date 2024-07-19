@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import getCSRFToken from "../../utils/getCSRFToken";
 import "./AddTask.css";
-import { Modal, Button } from "react-bootstrap"; 
+import { Modal, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Cookies from "js-cookie";
@@ -13,7 +13,7 @@ const AddTask: React.FC = () => {
   const [timeTaken, setTimeTaken] = useState(0);
   const [isAppraisable, setIsAppraisable] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
-  const [showModal, setShowModal] = useState(false); 
+  const [showModal, setShowModal] = useState(false);
   const [tasksToRate, setTasksToRate] = useState<any[]>([]);
   const [error, setError] = useState<string>("");
   const [employee, setEmployee] = useState<any>(null);
@@ -33,7 +33,7 @@ const AddTask: React.FC = () => {
         return;
       }
 
-      const timeTakenInSeconds = timeTaken 
+      const timeTakenInSeconds = timeTaken;
 
       const response = await axios.post(
         "http://localhost:8000/api/create-task/",
@@ -50,7 +50,7 @@ const AddTask: React.FC = () => {
           },
         }
       );
-      
+
       setSuccessMessage("Task added successfully!");
       console.log("Task added successfully", response.data);
 
@@ -149,7 +149,7 @@ const AddTask: React.FC = () => {
       );
 
       if (response.status === 200) {
-        setTasksToRate([]);
+        // setTasksToRate([]);
         setNotification({
           type: "success",
           message: "Tasks sent for appraisal successfully!",
@@ -193,10 +193,10 @@ const AddTask: React.FC = () => {
               <table className="table table-striped">
                 <thead>
                   <tr>
-                       <th style={{ width: '25%' }}>Title</th>
-                            <th style={{ width: '35%' }}>Description</th>
-                            <th style={{ width: '20%' }}>Time Taken</th>
-                            <th style={{ width: '20%' }}>Appraisable</th>
+                    <th style={{ width: "25%" }}>Title</th>
+                    <th style={{ width: "35%" }}>Description</th>
+                    <th style={{ width: "20%" }}>Time Taken</th>
+                    <th style={{ width: "20%" }}>Appraisable</th>
                   </tr>
                 </thead>
                 <tbody>

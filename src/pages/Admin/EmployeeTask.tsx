@@ -23,16 +23,24 @@ const EmployeeDetail = () => {
   const [employeeTasks, setEmployeeTasks] =  useState<Task[]>([]);
   const [showAttributesModal, setShowAttributesModal] = useState(false);
 
+  const token = localStorage.getItem('authToken');
   useEffect(() => {
-
-    axios.get(`http://127.0.0.1:8000/api/employee/${id}/`)
+    axios.get(`http://127.0.0.1:8000/api/employee/${id}/`,{
+      headers: {
+        Authorization: `Token ${token}`,
+    },
+    })
     .then(response => {
         setEmployeeName(`${response.data.first_name} ${response.data.last_name}`);
     })
     .catch(error => {
         console.error('Error fetching employee details:', error);
     });
-    axios.get(`http://127.0.0.1:8000/api/employee/${id}/tasks/`)
+    axios.get(`http://127.0.0.1:8000/api/employee/${id}/tasks/`,{
+      headers: {
+        Authorization: `Token ${token}`,
+    },
+    })
       .then(response => {
         setEmployeeTasks(response.data);
       })
@@ -52,7 +60,11 @@ const EmployeeDetail = () => {
     if (task) {
         axios.post(`http://127.0.0.1:8000/api/task/${taskId}/rate/`, {
             rating: task.rating
-        })
+        }, {
+          headers: {
+              Authorization: `Token ${token}`,
+          },
+      })
             .then(response => {
                 console.log('Task Rating saved:', response.data);
                 setEmployeeTasks(employeeTasks.filter(task => task.id !== taskId));
@@ -80,7 +92,11 @@ const EmployeeDetail = () => {
   const handleSaveAttributeRatings = () => {
     axios.post(`http://127.0.0.1:8000/api/employee/${id}/attributes/`, {
         attributes: attributeRatings
-    })
+    }, {
+      headers: {
+          Authorization: `Token ${token}`,
+      },
+  })
         .then(response => {
             console.log('Attribute Ratings saved:', response.data);
         })

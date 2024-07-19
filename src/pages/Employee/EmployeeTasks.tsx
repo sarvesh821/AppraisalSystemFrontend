@@ -3,14 +3,63 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { fetchCSRFToken } from "../../utils/fetchCSRFToken";
 import "./EmployeeTasks.css";
+interface Employee {
+  id: number;
+  user: {
+    id: number;
+    username: string;
+  };
+  date_of_joining: string; // ISO string format
+  date_of_birth: string; // ISO string format
+  location: string;
+  designation: string;
+  contact_no: string;
+  role: 'EMPLOYEE' | 'ADMIN';
+  email: string;
+  first_name: string;
+  last_name: string;
+  has_completed_one_year: () => boolean;
+}
+
+interface Task {
+  id: number;
+  employee: Employee;
+  title: string;
+  description: string;
+  time_taken: number; // Assuming time_taken is in days
+  is_appraisable: boolean;
+  task_send: boolean;
+  rating?: number; // Optional because it can be null
+}
+
+interface Attributes {
+  id: number;
+  employee: Employee;
+  time_management?: number; // Optional because it can be null
+  communication?: number; // Optional because it can be null
+  creativity?: number; // Optional because it can be null
+  respect_of_deadlines?: number; // Optional because it can be null
+  ability_to_plan?: number; // Optional because it can be null
+  problem_solving?: number; // Optional because it can be null
+  passion_to_work?: number; // Optional because it can be null
+  confidence?: number; // Optional because it can be null
+  adaptable?: number; // Optional because it can be null
+  learning_power?: number; // Optional because it can be null
+  all_attributes_not_none: () => boolean;
+}
+
+interface AttributeRating {
+  attribute: string;
+  rating: number;
+}
 
 const EmployeeTasks: React.FC = () => {
   const [showAttributes, setShowAttributes] = useState(false);
  
-  const [ratedTasks, setRatedTasks] = useState<any[]>([]);
-  const [attributeRatings, setAttributeRatings] = useState<any[]>([]);
+  const [ratedTasks, setRatedTasks] = useState<Task[]>([]);
+  const [attributeRatings, setAttributeRatings] = useState<AttributeRating[]>([]);
   const [error, setError] = useState<string>("");
-  const [employee, setEmployee] = useState<any>(null);
+  const [employee, setEmployee] = useState<Employee | null>(null);
 
   const attributesSectionRef = useRef<HTMLDivElement>(null);
 
@@ -28,17 +77,17 @@ const EmployeeTasks: React.FC = () => {
 
         const [employeeResponse, tasksResponse, attributesResponse] =
           await Promise.all([
-            axios.get("http://localhost:8000/api/employee-detail/", {
+            axios.get<Employee>("http://localhost:8000/api/employee-detail/", {
               headers: {
                 Authorization: `Token ${authToken}`,
               },
             }),
-            axios.get("http://localhost:8000/api/employee-tasks/", {
+            axios.get<{ rated_tasks: Task[] }>("http://localhost:8000/api/employee-tasks/", {
               headers: {
                 Authorization: `Token ${authToken}`,
               },
             }),
-            axios.get("http://localhost:8000/api/employee-attributes/", {
+            axios.get<Attributes>("http://localhost:8000/api/employee-attributes/", {
               headers: {
                 Authorization: `Token ${authToken}`,
               },
@@ -49,12 +98,19 @@ const EmployeeTasks: React.FC = () => {
         
         setRatedTasks(tasksResponse.data.rated_tasks);
 
-        const ratingsArray = Object.keys(attributesResponse.data).map(
-          (key) => ({
-            attribute: key,
-            rating: attributesResponse.data[key],
-          })
-        );
+        const ratingsArray: AttributeRating[] = Object.keys(attributesResponse.data).map(
+          (key) => {
+           
+            const rating = attributesResponse.data[key as keyof Attributes];
+            if (typeof rating === "number") {
+              return {
+                attribute: key,
+                rating: rating,
+              };
+            }
+            return null; 
+          }
+        ).filter((rating): rating is AttributeRating => rating !== null);
 
         setAttributeRatings(ratingsArray);
       } catch (error) {

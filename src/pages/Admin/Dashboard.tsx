@@ -8,9 +8,23 @@ const AdminMainDashboard: React.FC = () => {
     const [unratedEmployeesCount, setUnratedEmployeesCount] = useState<number>(0);
     useEffect(() => {
         const fetchData = async () => {
+            const token = localStorage.getItem('authToken');
+            if (!token) {
+                console.error('No auth token found');
+                return;
+            }
+
             try {
-                const usersResponse = await axios.get('http://localhost:8000/api/current-employees/');
-                const unratedEmployeesResponse = await axios.get('http://localhost:8000/api/unrated-employees/');
+                const usersResponse = await axios.get('http://localhost:8000/api/current-employees/', {
+                    headers: {
+                        Authorization: `Token ${token}`,
+                    },
+                });
+                const unratedEmployeesResponse = await axios.get('http://localhost:8000/api/unrated-employees/', {
+                    headers: {
+                        Authorization: `Token ${token}`,
+                    },
+                });
                 setUnratedEmployeesCount(unratedEmployeesResponse.data.count);
                 setUserData(usersResponse.data.count);
               

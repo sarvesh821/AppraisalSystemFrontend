@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import axios from 'axios';
-
+import Cookies from "js-cookie";
 interface Employee {
   id: number;
   first_name: string;
@@ -34,7 +34,7 @@ const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({ show, handleClose
       });
     }
   };
-
+  
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (formData) {

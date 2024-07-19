@@ -14,9 +14,21 @@ const EmployeeList = () => {
     const [employees, setEmployees] = useState<Employee[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-  
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+        console.error('No auth token found');
+        return;
+    }
     useEffect(() => {
-      axios.get('http://127.0.0.1:8000/api/employees-with-tasks-for-rating/')
+      axios.get('http://127.0.0.1:8000/api/employees-with-tasks-for-rating/',
+        {
+          headers: {
+            'Authorization': `Token ${token}`,  
+          
+          },
+        
+        }
+      )
         .then(response => {
           setEmployees(response.data);
           setLoading(false);

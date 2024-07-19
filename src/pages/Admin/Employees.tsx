@@ -44,8 +44,18 @@ const EmployeeList: React.FC = () => {
   const handleSave = (updatedEmployee: Employee) => {
     setEmployees(employees.map(employee => employee.id === updatedEmployee.id ? updatedEmployee : employee));
   };
+  const token = localStorage.getItem('authToken');
+  if (!token) {
+      console.error('No auth token found');
+      return;
+  }
   const handleDelete = (employeeId: number) => {
-    axios.delete(`http://127.0.0.1:8000/api/employees/${employeeId}/`)
+    axios.delete(`http://127.0.0.1:8000/api/employees/${employeeId}/`,{
+      headers: {
+        'Authorization': `Token ${token}`,  
+      
+      },
+    })
       .then(() => {
         setEmployees(employees.filter(employee => employee.id !== employeeId));
       })
