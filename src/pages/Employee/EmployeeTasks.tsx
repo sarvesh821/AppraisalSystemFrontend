@@ -215,7 +215,7 @@ const EmployeeTasks: React.FC = () => {
             <div className="gridContainer">
               {attributeRatings.slice(1, -1).map(
                 (attr, index) =>
-                  attr.rating !== 0 && (
+                  attr.rating >= 0 && (
                     <div key={index} className="gridItem">
                       <strong>{attr.attribute}:</strong> {attr.rating}
                     </div>

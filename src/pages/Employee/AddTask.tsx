@@ -60,9 +60,9 @@ const AddTask: React.FC = () => {
       setTimeTaken(0);
       setIsAppraisable(false);
 
-      setTimeout(() => {
-        setSuccessMessage("");
-      }, 1000);
+      setSuccessMessage("");
+      window.location.reload()
+    
     } catch (error) {
       console.error("Error adding task:", error);
     }
@@ -155,9 +155,9 @@ const AddTask: React.FC = () => {
           message: "Tasks sent for appraisal successfully!",
         });
         setError("");
-        setTimeout(() => {
-          setNotification(null);
-        }, 1000);
+        setNotification(null);
+        window.location.reload()
+      
       } else {
         setError("Failed to send tasks for appraisal. Please try again.");
       }
@@ -193,10 +193,11 @@ const AddTask: React.FC = () => {
               <table className="table table-striped">
                 <thead>
                   <tr>
-                    <th style={{ width: "25%" }}>Title</th>
+                    <th style={{ width: "20%" }}>Title</th>
                     <th style={{ width: "35%" }}>Description</th>
-                    <th style={{ width: "20%" }}>Time Taken</th>
-                    <th style={{ width: "20%" }}>Appraisable</th>
+                    <th style={{ width: "15%" }}>Time Taken</th>
+                    <th style={{ width: "15%" }}>Appraisable</th>
+                    <th style={{ width: "10%" }}>Status</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -206,6 +207,7 @@ const AddTask: React.FC = () => {
                       <td>{task.description}</td>
                       <td>{task.time_taken} days</td>
                       <td>{task.is_appraisable ? "Yes" : "No"}</td>
+                      <td>{task.task_send ? "Send" : "Pending"}</td>
                     </tr>
                   ))}
                 </tbody>
