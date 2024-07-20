@@ -6,6 +6,7 @@ import AdminSidebar from "../components/sideBars/AdminSidebar";
 import Register from "../pages/Admin/Register";
 import EmployeeTask from "../pages/Admin/EmployeeTask";
 import ProtectedRoute from "./ProtectedRoute";
+import EmployeeTasksPage from "../pages/Admin/EmployeeTasksPage";
 
 const EmployeeDashboard = () => {
   return (
@@ -19,6 +20,7 @@ const EmployeeDashboard = () => {
           <Route path="rating/employee/:id" element={<EmployeeTask />} />
           <Route path="employees" element={<Employees />} />
           <Route path="logout" element={<Navigate to="/login" replace />} />
+          <Route path="employees/employee-tasks/:employeeId" element={<EmployeeTasksPage/>} />
         </ProtectedRoute>
       </AdminSidebar>
     </>

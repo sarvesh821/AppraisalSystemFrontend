@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Employees.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faTasks, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import "./Employee-actions.css";
 import EditEmployeeModal from "./EditEmployeeModal";
+import { useNavigate } from "react-router-dom";
 interface Employee {
   id: number;
   first_name: string;
@@ -12,7 +13,8 @@ interface Employee {
   date_of_joining: string;
   email: string;
   contact_no: string;
-
+  date_of_birth:string;
+  location:string;
   designation: string;
 }
 
@@ -24,7 +26,7 @@ const EmployeeList: React.FC = () => {
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(
     null
   );
-
+  const navigate = useNavigate();
   useEffect(() => {
     axios
       .get("http://127.0.0.1:8000/api/employees/")
@@ -70,6 +72,11 @@ const EmployeeList: React.FC = () => {
         console.error("Error deleting employee:", error);
       });
   };
+  const handleTasks = (employeeId: number) => {
+    navigate(`/admindashboard/employees/employee-tasks/${employeeId}`); // Redirect to the tasks page
+  };
+
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -105,6 +112,11 @@ const EmployeeList: React.FC = () => {
                 icon={faTrashAlt}
                 onClick={() => handleDelete(employee.id)}
                 className="action-icon delete-icon"
+              />
+               <FontAwesomeIcon
+                icon={faTasks}
+                onClick={() => handleTasks(employee.id)}
+                className="action-icon tasks-icon"
               />
             </div>
           </div>
