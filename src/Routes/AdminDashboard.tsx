@@ -5,7 +5,7 @@ import Employees from "../pages/Admin/Employees";
 import AdminSidebar from "../components/sideBars/AdminSidebar";
 import Register from "../pages/Admin/Register";
 import EmployeeTask from "../pages/Admin/EmployeeTask";
-import ProtectedRoute from "./ProtectedRoute";
+import ProtectedRoute from "./ProtectedRouteAdmin";
 import EmployeeTasksPage from "../pages/Admin/EmployeeTasksPage";
 
 const EmployeeDashboard = () => {

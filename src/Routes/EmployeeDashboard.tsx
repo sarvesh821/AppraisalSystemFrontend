@@ -4,7 +4,7 @@ import AddTask from "../pages/Employee/AddTask";
 import Profile from "../pages/Employee/Profile";
 import EmployeeSidebar from "../components/sideBars/EmployeeSidebar";
 import EmployeeTasks from "../pages/Employee/EmployeeTasks";
-import ProtectedRoute from "./ProtectedRoute";
+import ProtectedRoute from "./ProtectedRouteEmployee";
 
 const EmployeeDashboard = () => {
   return (
