@@ -177,8 +177,8 @@ const EmployeeTasks: React.FC = () => {
                 <thead>
                   <tr>
                     <th style={{ width: "25%" }}>Title</th>
-                    <th style={{ width: "35%" }}>Description</th>
-                    <th style={{ width: "20%" }}>Time Taken</th>
+                    <th style={{ width: "38%" }}>Description</th>
+                    <th style={{ width: "27%" }}>Time Taken</th>
                     <th style={{ width: "20%" }}>Rating</th>
                   </tr>
                 </thead>
@@ -207,7 +207,10 @@ const EmployeeTasks: React.FC = () => {
                 borderRadius: "5px",
                 padding: "8px",
                 color: "white",
+                fontWeight:"530",
+                letterSpacing:"1px",
                 marginBottom: "12px",
+                fontSize:"18px"
               }}
             >
               Attributes
@@ -215,7 +218,7 @@ const EmployeeTasks: React.FC = () => {
             <div className="gridContainer">
               {attributeRatings.slice(1, -1).map(
                 (attr, index) =>
-                  attr.rating >= 0 && (
+                  attr.rating > 0 && (
                     <div key={index} className="gridItem">
                       <strong>{attr.attribute}:</strong> {attr.rating}
                     </div>

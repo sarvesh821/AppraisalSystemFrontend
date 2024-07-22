@@ -34,7 +34,7 @@ const Login: React.FC = () => {
       }
     } catch (err) {
       console.error("Login error:", err);
-      setError("An error occurred. Please try again.");
+      setError("Invalid credentials. Please try again.");
     }
   };
 

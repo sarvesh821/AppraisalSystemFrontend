@@ -1,8 +1,11 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { FaBell } from "react-icons/fa";
+
 import NotificationBell from "./NotificationBell";
+
+
 export function EmployeeNavBar() {
+
   return (
     <Navbar
       expand="lg"

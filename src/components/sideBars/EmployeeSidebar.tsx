@@ -3,6 +3,9 @@ import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./EmployeeSidebar.css";
 import { EmployeeNavBar } from "../Header/EmployeeNavbar";
+import { useNavigationGuard } from "../../Routes/UsePreventBack";
+
+
 
 interface MenuItem {
   path: string;
@@ -15,6 +18,7 @@ interface EmployeeSidebarProps {
 }
 
 const EmployeeSidebar: React.FC<EmployeeSidebarProps> = ({ children }) => {
+useNavigationGuard();
   const navigate = useNavigate();
 
   const menuItems: MenuItem[] = [
@@ -61,7 +65,11 @@ const EmployeeSidebar: React.FC<EmployeeSidebarProps> = ({ children }) => {
       );
 
       localStorage.removeItem("authToken");
-      navigate("/login");
+      navigate('/login', { replace: true });
+      window.history.pushState(null, "", "/login");
+      window.history.go(0);
+     
+       
     } catch (error) {
       console.error("Error during logout:", error);
     }
