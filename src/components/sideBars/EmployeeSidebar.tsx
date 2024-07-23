@@ -66,8 +66,7 @@ useNavigationGuard();
 
       localStorage.removeItem("authToken");
       navigate('/login', { replace: true });
-      window.history.pushState(null, "", "/login");
-      window.history.go(0);
+     
      
        
     } catch (error) {
