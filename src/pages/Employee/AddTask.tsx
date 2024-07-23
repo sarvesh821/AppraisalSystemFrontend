@@ -193,11 +193,11 @@ const AddTask: React.FC = () => {
               <table className="table table-striped">
                 <thead>
                   <tr>
-                    <th style={{ width: "20%"  }}>Title</th>
-                    <th style={{ width: "35%" }}>Description</th>
-                    <th style={{ width: "15%" }}>Time Taken</th>
-                    <th style={{ width: "15%" }}>Appraisable</th>
-                    <th style={{ width: "10%" }}>Status</th>
+                    <th >Title</th>
+                    <th >Description</th>
+                    <th >Time Taken</th>
+                    <th >Appraisable</th>
+                    <th >Status</th>
                   </tr>
                 </thead>
                 <tbody>

@@ -175,11 +175,11 @@ const EmployeeTasks: React.FC = () => {
             <div className="table-responsive">
               <table className="table table-striped">
                 <thead>
-                  <tr>
-                    <th style={{ width: "25%" }}>Title</th>
-                    <th style={{ width: "38%" }}>Description</th>
-                    <th style={{ width: "27%" }}>Time Taken</th>
-                    <th style={{ width: "20%" }}>Rating</th>
+                  <tr >
+                    <th >Title</th>
+                    <th >Description</th>
+                    <th >Time Taken</th>
+                    <th >Rating</th>
                   </tr>
                 </thead>
                 <tbody>

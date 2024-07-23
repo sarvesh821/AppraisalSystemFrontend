@@ -50,13 +50,38 @@
   display: block;
 
 }
-.table-striped{
+.table-striped-tasks {
+  max-height: 545px;
+  overflow-y: auto;
+  display: block;
   width: 100%;
+  table-layout: fixed;  
 }
+
 .table thead th {
   position: sticky;
-
   top: 0;
   background-color: white;
   z-index: 1;
+  text-align: left;
+  background-color: white;
+  padding-left: 15px;
+
+
 }
+
+.table td,
+.table th {
+  width: 25%; 
+  padding-left: 15px;
+}
+
+.table td:nth-child(2),
+.table th:nth-child(2) {
+  width: 45%; 
+}
+.table td:nth-child(4),
+.table th:nth-child(4) {
+  padding-right: 20px; 
+}
+

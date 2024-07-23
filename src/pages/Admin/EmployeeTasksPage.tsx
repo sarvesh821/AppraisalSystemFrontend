@@ -43,7 +43,7 @@ const EmployeeTasksPage: React.FC = () => {
           }
         );
 
-        console.log("API response:", response.data); // Debugging step
+        console.log("API response:", response.data); 
 
         setEmployeeName(response.data.employee_name);
         setTasks(response.data.rated_tasks);
@@ -79,10 +79,10 @@ const EmployeeTasksPage: React.FC = () => {
       <table className="table table-striped">
         <thead>
           <tr>
-            <th style={{ width: "25%" }}>Title</th>
-            <th style={{ width: "45%" }}>Description</th>
-            <th style={{ width: "20%" }}>Time Taken</th>
-            <th style={{ width: "20%" }}>Rating</th>
+            <th >Title</th>
+            <th >Description</th>
+            <th >Time Taken</th>
+            <th >Rating</th>
           </tr>
         </thead>
         <tbody>
