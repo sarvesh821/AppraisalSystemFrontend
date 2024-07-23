@@ -3,9 +3,7 @@ import { Link } from "react-router-dom";
 
 import NotificationBell from "./NotificationBell";
 
-
 export function EmployeeNavBar() {
-
   return (
     <Navbar
       expand="lg"

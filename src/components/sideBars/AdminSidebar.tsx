@@ -1,4 +1,3 @@
-
 import { FaSignOutAlt, FaStar, FaTh, FaUsers } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./AdminSidebar.css";
@@ -6,8 +5,6 @@ import { MdPersonAdd } from "react-icons/md";
 import axios from "axios";
 import { AdminNavBar } from "../Header/AdminNavbar";
 import { useNavigationGuard } from "../../Routes/UsePreventBack";
-
-
 
 interface MenuItem {
   path: string;
@@ -20,7 +17,7 @@ interface EmployeeSidebarProps {
 }
 
 const EmployeeSidebar: React.FC<EmployeeSidebarProps> = ({ children }) => {
- useNavigationGuard()
+  useNavigationGuard();
   const navigate = useNavigate();
 
   const menuItems: MenuItem[] = [
@@ -66,10 +63,7 @@ const EmployeeSidebar: React.FC<EmployeeSidebarProps> = ({ children }) => {
       );
 
       localStorage.removeItem("authToken");
-      navigate('/login', { replace: true });
-     
-      
-     
+      navigate("/login", { replace: true });
     } catch (error) {
       console.error("Error during logout:", error);
     }

@@ -61,8 +61,7 @@ const AddTask: React.FC = () => {
       setIsAppraisable(false);
 
       setSuccessMessage("");
-      window.location.reload()
-    
+      window.location.reload();
     } catch (error) {
       console.error("Error adding task:", error);
     }
@@ -156,8 +155,7 @@ const AddTask: React.FC = () => {
         });
         setError("");
         setNotification(null);
-        window.location.reload()
-      
+        window.location.reload();
       } else {
         setError("Failed to send tasks for appraisal. Please try again.");
       }
@@ -193,11 +191,11 @@ const AddTask: React.FC = () => {
               <table className="table table-striped">
                 <thead>
                   <tr>
-                    <th >Title</th>
-                    <th >Description</th>
-                    <th >Time Taken</th>
-                    <th >Appraisable</th>
-                    <th >Status</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Time Taken</th>
+                    <th>Appraisable</th>
+                    <th>Status</th>
                   </tr>
                 </thead>
                 <tbody>

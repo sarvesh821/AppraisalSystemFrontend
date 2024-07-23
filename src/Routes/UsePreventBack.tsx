@@ -8,10 +8,8 @@ export const useNavigationGuard = () => {
     const handlePopState = () => {
       const authToken = localStorage.getItem("authToken");
       if (!authToken) {
-      
         navigate("/login", { replace: true });
       } else {
-        
         window.history.pushState(null, "", window.location.href);
       }
     };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Route, Navigate, Routes } from "react-router-dom";
-import validateAuthToken from "./ValidateAuthTokenEmployee";  // Adjust the import path as necessary
+import validateAuthToken from "./ValidateAuthTokenEmployee";
 
 interface ProtectedRouteProps {
   path: string;
@@ -23,7 +23,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   }, []);
 
   if (isAuthenticated === null) {
-    return <div>Loading...</div>;  // or a loading spinner
+    return <div>Loading...</div>;
   }
 
   return isAuthenticated ? (

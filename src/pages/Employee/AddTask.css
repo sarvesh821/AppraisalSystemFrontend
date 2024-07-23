@@ -32,10 +32,9 @@ select {
 }
 
 input[type="checkbox"] {
- 
-  width: auto; 
+  width: auto;
   margin-right: 5px;
-  transform: translateY(2px); 
+  transform: translateY(2px);
 }
 
 button {
@@ -73,38 +72,35 @@ button:hover {
 }
 
 .table-striped {
-    max-height: 545px;
-    overflow-y: auto;
-    display: block;
-    width: 100%;
-    table-layout: fixed; 
-    /* border-radius: 5px; */
-    
+  max-height: 545px;
+  overflow-y: auto;
+  display: block;
+  width: 100%;
+  table-layout: fixed;
+  /* border-radius: 5px; */
 }
 
 .table thead th {
-    position: sticky;
-    top: 0;
-    background-color: white;
-    z-index: 1;
-    text-align: left;
-    background-color: rgb(174, 174, 174); 
-    padding-left: 15px;
-
-
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 1;
+  text-align: left;
+  background-color: rgb(174, 174, 174);
+  padding-left: 15px;
 }
 
 .table td,
 .table th {
-    width: 25%; 
-    padding-left: 15px;
+  width: 25%;
+  padding-left: 15px;
 }
 
 .table td:nth-child(2),
 .table th:nth-child(2) {
-    width: 45%; 
+  width: 45%;
 }
 .table td:nth-child(4),
 .table th:nth-child(4) {
-    padding-right: 20px; 
+  padding-right: 20px;
 }

@@ -11,22 +11,25 @@ const Home: React.FC = () => {
 
     if (authToken) {
       try {
-        const response = await axios.get("http://localhost:8000/api/user-info/", {
-          headers: {
-            Authorization: `Token ${authToken}`,
-          },
-        });
+        const response = await axios.get(
+          "http://localhost:8000/api/user-info/",
+          {
+            headers: {
+              Authorization: `Token ${authToken}`,
+            },
+          }
+        );
 
-        const userRole = response.data.is_staff; 
+        const userRole = response.data.is_staff;
 
         if (userRole) {
-          navigate("/admindashboard"); 
+          navigate("/admindashboard");
         } else {
-          navigate("/employeedashboard"); 
+          navigate("/employeedashboard");
         }
       } catch (error) {
         console.error("Error fetching user info:", error);
-        navigate("/login"); 
+        navigate("/login");
       }
     } else {
       navigate("/login");
@@ -44,10 +47,7 @@ const Home: React.FC = () => {
         />
         <h1 className="title">APPRAISAL SYSTEM</h1>
       </div>
-      <button
-        className="appraisal-button"
-        onClick={handleGoForAppraisal} 
-      >
+      <button className="appraisal-button" onClick={handleGoForAppraisal}>
         Go for Appraisal
       </button>
     </div>

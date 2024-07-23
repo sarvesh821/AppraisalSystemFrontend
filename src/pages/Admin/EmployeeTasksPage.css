@@ -1,48 +1,42 @@
 .table-striped {
-    max-height: 545px;
-    overflow-y: auto;
-    display: block;
-    width: 100%;
-    table-layout: fixed; 
-    /* border-radius: 5px; */
-    
+  max-height: 545px;
+  overflow-y: auto;
+  display: block;
+  width: 100%;
+  table-layout: fixed;
+  /* border-radius: 5px; */
 }
 
 .table thead th {
-    position: sticky;
-    top: 0;
-    background-color: white;
-    z-index: 1;
-    text-align: left;
-    background-color: rgb(218, 215, 215); 
-   
-
-
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 1;
+  text-align: left;
+  background-color: rgb(218, 215, 215);
 }
 
 .table td,
 .table th {
-    width: 25%; 
-    padding-left: 15px;
-    padding-right: 23px;
+  width: 25%;
+  padding-left: 15px;
+  padding-right: 23px;
 }
 
 .table td:nth-child(2),
 .table th:nth-child(2) {
-    width: 45%; 
+  width: 45%;
 }
 .table td:nth-child(3),
 .table th:nth-child(3) {
-  
-    text-align: center;
+  text-align: center;
 }
 .table td:nth-child(4),
 .table th:nth-child(4) {
-    padding-right: 40px; 
-    text-align: center;
+  padding-right: 40px;
+  text-align: center;
 }
 .table td:nth-child(5),
 .table th:nth-child(5) {
- 
-    text-align: center;
+  text-align: center;
 }

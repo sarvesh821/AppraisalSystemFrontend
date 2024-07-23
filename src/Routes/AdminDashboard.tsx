@@ -20,7 +20,10 @@ const EmployeeDashboard = () => {
           <Route path="rating/employee/:id" element={<EmployeeTask />} />
           <Route path="employees" element={<Employees />} />
           <Route path="logout" element={<Navigate to="/login" replace />} />
-          <Route path="employees/employee-tasks/:employeeId" element={<EmployeeTasksPage/>} />
+          <Route
+            path="employees/employee-tasks/:employeeId"
+            element={<EmployeeTasksPage />}
+          />
         </ProtectedRoute>
       </AdminSidebar>
     </>

@@ -5,8 +5,6 @@ import "./EmployeeSidebar.css";
 import { EmployeeNavBar } from "../Header/EmployeeNavbar";
 import { useNavigationGuard } from "../../Routes/UsePreventBack";
 
-
-
 interface MenuItem {
   path: string;
   name: string;
@@ -18,7 +16,7 @@ interface EmployeeSidebarProps {
 }
 
 const EmployeeSidebar: React.FC<EmployeeSidebarProps> = ({ children }) => {
-useNavigationGuard();
+  useNavigationGuard();
   const navigate = useNavigate();
 
   const menuItems: MenuItem[] = [
@@ -65,10 +63,7 @@ useNavigationGuard();
       );
 
       localStorage.removeItem("authToken");
-      navigate('/login', { replace: true });
-     
-     
-       
+      navigate("/login", { replace: true });
     } catch (error) {
       console.error("Error during logout:", error);
     }

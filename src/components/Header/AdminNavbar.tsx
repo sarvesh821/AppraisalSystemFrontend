@@ -2,11 +2,7 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import NotificationBell from "./NotificationBell";
 
-
-
-
 export function AdminNavBar() {
-  
   return (
     <Navbar
       expand="lg"

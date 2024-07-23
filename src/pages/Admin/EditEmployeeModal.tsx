@@ -46,7 +46,7 @@ const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({
     e.preventDefault();
     if (formData) {
       axios
-        .put(`http://127.0.0.1:8000/api/employees/${formData.id}/`, formData,{
+        .put(`http://127.0.0.1:8000/api/employees/${formData.id}/`, formData, {
           headers: {
             Authorization: `Token ${token}`,
           },

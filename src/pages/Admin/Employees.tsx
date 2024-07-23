@@ -13,8 +13,8 @@ interface Employee {
   date_of_joining: string;
   email: string;
   contact_no: string;
-  date_of_birth:string;
-  location:string;
+  date_of_birth: string;
+  location: string;
   designation: string;
 }
 
@@ -29,7 +29,7 @@ const EmployeeList: React.FC = () => {
   const navigate = useNavigate();
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/api/employees/",{
+      .get("http://127.0.0.1:8000/api/employees/", {
         headers: {
           Authorization: `Token ${token}`,
         },
@@ -77,9 +77,8 @@ const EmployeeList: React.FC = () => {
       });
   };
   const handleTasks = (employeeId: number) => {
-    navigate(`/admindashboard/employees/employee-tasks/${employeeId}`); // Redirect to the tasks page
+    navigate(`/admindashboard/employees/employee-tasks/${employeeId}`);
   };
-
 
   if (loading) {
     return <div>Loading...</div>;
@@ -117,7 +116,7 @@ const EmployeeList: React.FC = () => {
                 onClick={() => handleDelete(employee.id)}
                 className="action-icon delete-icon"
               />
-               <FontAwesomeIcon
+              <FontAwesomeIcon
                 icon={faTasks}
                 onClick={() => handleTasks(employee.id)}
                 className="action-icon tasks-icon"

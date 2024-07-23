@@ -175,11 +175,11 @@ const EmployeeTasks: React.FC = () => {
             <div className="table-responsive">
               <table className="table table-striped">
                 <thead>
-                  <tr >
-                    <th >Title</th>
-                    <th >Description</th>
-                    <th >Time Taken</th>
-                    <th >Rating</th>
+                  <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Time Taken</th>
+                    <th>Rating</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -207,10 +207,10 @@ const EmployeeTasks: React.FC = () => {
                 borderRadius: "5px",
                 padding: "8px",
                 color: "white",
-                fontWeight:"530",
-                letterSpacing:"1px",
+                fontWeight: "530",
+                letterSpacing: "1px",
                 marginBottom: "12px",
-                fontSize:"18px"
+                fontSize: "18px",
               }}
             >
               Attributes

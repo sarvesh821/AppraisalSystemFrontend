@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import './Rating.css'
+import "./Rating.css";
 
 interface Employee {
   id: number;
@@ -22,30 +22,39 @@ const EmployeeList = () => {
       return;
     }
 
-    const fetchAllEmployees = axios.get("http://127.0.0.1:8000/api/employees/", {
-      headers: {
-        Authorization: `Token ${token}`,
-      },
-    });
+    const fetchAllEmployees = axios.get(
+      "http://127.0.0.1:8000/api/employees/",
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      }
+    );
 
-    const fetchEmployeesWithTasksForAppraisal = axios.get("http://127.0.0.1:8000/api/employees-with-tasks-for-rating/", {
-      headers: {
-        Authorization: `Token ${token}`,
-      },
-    });
+    const fetchEmployeesWithTasksForAppraisal = axios.get(
+      "http://127.0.0.1:8000/api/employees-with-tasks-for-rating/",
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      }
+    );
 
     Promise.all([fetchAllEmployees, fetchEmployeesWithTasksForAppraisal])
       .then(([allEmployeesResponse, employeesWithTasksResponse]) => {
         const allEmployees = allEmployeesResponse.data;
         const employeesWithTasks = employeesWithTasksResponse.data;
-        const employeesWithTasksIds = employeesWithTasks.map((emp: Employee) => emp.id);
+        const employeesWithTasksIds = employeesWithTasks.map(
+          (emp: Employee) => emp.id
+        );
 
         const updatedEmployees = allEmployees.map((employee: Employee) => ({
           ...employee,
           has_tasks_for_appraisal: employeesWithTasksIds.includes(employee.id),
         }));
         updatedEmployees.sort((a: Employee, b: Employee) => {
-          if (a.has_tasks_for_appraisal && !b.has_tasks_for_appraisal) return -1;
+          if (a.has_tasks_for_appraisal && !b.has_tasks_for_appraisal)
+            return -1;
           if (!a.has_tasks_for_appraisal && b.has_tasks_for_appraisal) return 1;
           return 0;
         });
@@ -77,10 +86,12 @@ const EmployeeList = () => {
             to={`/admindashboard/rating/employee/${employee.id}`}
             className="list-group-item list-group-item-action"
           >
-             <span>
+            <span>
               {employee.first_name} {employee.last_name}
             </span>
-            {employee.has_tasks_for_appraisal && <span className="dot text-success">●</span>}
+            {employee.has_tasks_for_appraisal && (
+              <span className="dot text-success">●</span>
+            )}
           </Link>
         ))}
       </div>
