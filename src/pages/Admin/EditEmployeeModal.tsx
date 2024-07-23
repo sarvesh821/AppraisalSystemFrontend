@@ -28,7 +28,7 @@ const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({
   onSave,
 }) => {
   const [formData, setFormData] = useState<Employee | null>(employee);
-
+  const token = localStorage.getItem("authToken");
   useEffect(() => {
     setFormData(employee);
   }, [employee]);
@@ -46,7 +46,11 @@ const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({
     e.preventDefault();
     if (formData) {
       axios
-        .put(`http://127.0.0.1:8000/api/employees/${formData.id}/`, formData)
+        .put(`http://127.0.0.1:8000/api/employees/${formData.id}/`, formData,{
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        })
         .then((response) => {
           onSave(response.data);
           handleClose();

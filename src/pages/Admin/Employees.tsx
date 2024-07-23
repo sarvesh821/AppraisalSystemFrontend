@@ -29,7 +29,11 @@ const EmployeeList: React.FC = () => {
   const navigate = useNavigate();
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/api/employees/")
+      .get("http://127.0.0.1:8000/api/employees/",{
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
       .then((response) => {
         setEmployees(response.data);
         setLoading(false);
