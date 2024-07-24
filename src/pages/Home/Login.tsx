@@ -53,7 +53,7 @@ const Login: React.FC = () => {
           <div className="form-group">
             <input
               type="text"
-              placeholder="Email"
+              placeholder="Username"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
