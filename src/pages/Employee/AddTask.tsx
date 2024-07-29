@@ -4,9 +4,10 @@ import getCSRFToken from "../../utils/getCSRFToken";
 import "./AddTask.css";
 import { Modal, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faEdit } from "@fortawesome/free-solid-svg-icons";
 import Cookies from "js-cookie";
 import { fetchCSRFToken } from "../../utils/fetchCSRFToken";
+
 const AddTask: React.FC = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -21,6 +22,8 @@ const AddTask: React.FC = () => {
     type: "success" | "error";
     message: string;
   } | null>(null);
+  const [editTask, setEditTask] = useState<any>(null); 
+  const [showEditModal, setShowEditModal] = useState(false); 
   const csrfToken = getCSRFToken();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -67,6 +70,49 @@ const AddTask: React.FC = () => {
     }
   };
 
+  const handleEditSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      const authToken = localStorage.getItem("authToken");
+      if (!authToken) {
+        console.error("No authToken found");
+        return;
+      }
+
+      const response = await axios.put(
+        `http://localhost:8000/api/update-task/${editTask.id}/`,
+        {
+          title,
+          description,
+          time_taken: timeTaken,
+          is_appraisable: isAppraisable,
+        },
+        {
+          headers: {
+            Authorization: `Token ${authToken}`,
+            "X-CSRFToken": csrfToken || "",
+          },
+        }
+      );
+
+      setSuccessMessage("Task updated successfully!");
+      console.log("Task updated successfully", response.data);
+
+      setShowEditModal(false);
+      setEditTask(null);
+      setTitle("");
+      setDescription("");
+      setTimeTaken(0);
+      setIsAppraisable(false);
+
+      setSuccessMessage("");
+      window.location.reload();
+    } catch (error) {
+      console.error("Error updating task:", error);
+    }
+  };
+
   useEffect(() => {
     const initialize = async () => {
       try {
@@ -100,6 +146,7 @@ const AddTask: React.FC = () => {
 
     initialize();
   }, []);
+
   const handleAxiosError = (error: any) => {
     if (axios.isAxiosError(error)) {
       if (error.response?.status === 404) {
@@ -122,6 +169,7 @@ const AddTask: React.FC = () => {
       setError("An unexpected error occurred. Please try again later.");
     }
   };
+
   const sendTasksForAppraisal = async () => {
     const csrfToken = Cookies.get("csrftoken");
     if (!csrfToken) {
@@ -148,7 +196,6 @@ const AddTask: React.FC = () => {
       );
 
       if (response.status === 200) {
-        // setTasksToRate([]);
         setNotification({
           type: "success",
           message: "Tasks sent for appraisal successfully!",
@@ -163,6 +210,16 @@ const AddTask: React.FC = () => {
       handleAxiosError(error);
     }
   };
+
+  const handleEditClick = (task: any) => {
+    setEditTask(task);
+    setTitle(task.title);
+    setDescription(task.description);
+    setTimeTaken(task.time_taken);
+    setIsAppraisable(task.is_appraisable);
+    setShowEditModal(true);
+  };
+
   return (
     <div>
       {successMessage && (
@@ -196,6 +253,7 @@ const AddTask: React.FC = () => {
                     <th>Time Taken</th>
                     <th>Appraisable</th>
                     <th>Status</th>
+                    <th>Action</th> 
                   </tr>
                 </thead>
                 <tbody>
@@ -206,6 +264,15 @@ const AddTask: React.FC = () => {
                       <td>{task.time_taken} days</td>
                       <td>{task.is_appraisable ? "Yes" : "No"}</td>
                       <td>{task.task_send ? "Send" : "Pending"}</td>
+                      <td>
+                        {!task.task_send && (
+                          <FontAwesomeIcon
+                            icon={faEdit}
+                            onClick={() => handleEditClick(task)}
+                            style={{ cursor: "pointer" }}
+                          />
+                        )}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -223,11 +290,11 @@ const AddTask: React.FC = () => {
           </div>
         </div>
       </div>
-
       <button className="floating-button" onClick={() => setShowModal(true)}>
-        <FontAwesomeIcon icon={faPlus} />
-      </button>
+<FontAwesomeIcon icon={faPlus} />
+</button>
 
+      
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Add Task</Modal.Title>
@@ -235,57 +302,110 @@ const AddTask: React.FC = () => {
         <Modal.Body>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="title">Title:</label>
+              <label htmlFor="title">Title</label>
               <input
                 type="text"
-                id="title"
-                name="title"
-                required
                 className="form-control"
+                id="title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
+                required
               />
             </div>
             <div className="form-group">
-              <label htmlFor="description">Description:</label>
+              <label htmlFor="description">Description</label>
               <textarea
-                id="description"
-                name="description"
-                required
                 className="form-control"
+                id="description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-              />
+                required
+              ></textarea>
             </div>
             <div className="form-group">
-              <label htmlFor="timeTaken">Time Taken (in Days):</label>
+              <label htmlFor="timeTaken">Time Taken (in days)</label>
               <input
                 type="number"
-                id="timeTaken"
-                name="timeTaken"
-                min="0"
-                required
                 className="form-control"
+                id="timeTaken"
                 value={timeTaken}
-                onChange={(e) => setTimeTaken(Number(e.target.value))}
+                onChange={(e) => setTimeTaken(parseInt(e.target.value))}
+                required
               />
             </div>
             <div className="form-group form-check">
               <input
                 type="checkbox"
-                id="isAppraisable"
-                name="isAppraisable"
                 className="form-check-input"
+                id="isAppraisable"
                 checked={isAppraisable}
                 onChange={(e) => setIsAppraisable(e.target.checked)}
               />
-              <label htmlFor="isAppraisable" className="form-check-label">
+              <label className="form-check-label" htmlFor="isAppraisable">
                 Is Appraisable
               </label>
             </div>
-            <Button variant="primary" type="submit">
-              Add Task
-            </Button>
+            <button type="submit" className="btn btn-primary">
+              Submit
+            </button>
+          </form>
+        </Modal.Body>
+      </Modal>
+
+      {/* Edit Task Modal */}
+      <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Task</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form onSubmit={handleEditSubmit}>
+            <div className="form-group">
+              <label htmlFor="title">Title</label>
+              <input
+                type="text"
+                className="form-control"
+                id="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="description">Description</label>
+              <textarea
+                className="form-control"
+                id="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                required
+              ></textarea>
+            </div>
+            <div className="form-group">
+              <label htmlFor="timeTaken">Time Taken (in days)</label>
+              <input
+                type="number"
+                className="form-control"
+                id="timeTaken"
+                value={timeTaken}
+                onChange={(e) => setTimeTaken(parseInt(e.target.value))}
+                required
+              />
+            </div>
+            <div className="form-group form-check">
+              <input
+                type="checkbox"
+                className="form-check-input"
+                id="isAppraisable"
+                checked={isAppraisable}
+                onChange={(e) => setIsAppraisable(e.target.checked)}
+              />
+              <label className="form-check-label" htmlFor="isAppraisable">
+                Is Appraisable
+              </label>
+            </div>
+            <button type="submit" className="btn btn-primary">
+              Submit
+            </button>
           </form>
         </Modal.Body>
       </Modal>
@@ -294,3 +414,24 @@ const AddTask: React.FC = () => {
 };
 
 export default AddTask;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

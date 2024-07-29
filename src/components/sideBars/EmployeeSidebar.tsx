@@ -16,7 +16,7 @@ interface EmployeeSidebarProps {
 }
 
 const EmployeeSidebar: React.FC<EmployeeSidebarProps> = ({ children }) => {
-  useNavigationGuard();
+ useNavigationGuard()
   const navigate = useNavigate();
 
   const menuItems: MenuItem[] = [
@@ -63,9 +63,16 @@ const EmployeeSidebar: React.FC<EmployeeSidebarProps> = ({ children }) => {
       );
 
       localStorage.removeItem("authToken");
+      window.history.replaceState(null, "", "/login");
+
       navigate("/login", { replace: true });
+     
+
+    
+      
     } catch (error) {
       console.error("Error during logout:", error);
+
     }
   };
 

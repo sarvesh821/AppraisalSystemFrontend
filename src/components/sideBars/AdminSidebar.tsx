@@ -6,6 +6,7 @@ import axios from "axios";
 import { AdminNavBar } from "../Header/AdminNavbar";
 import { useNavigationGuard } from "../../Routes/UsePreventBack";
 
+
 interface MenuItem {
   path: string;
   name: string;
@@ -17,7 +18,7 @@ interface EmployeeSidebarProps {
 }
 
 const EmployeeSidebar: React.FC<EmployeeSidebarProps> = ({ children }) => {
-  useNavigationGuard();
+  useNavigationGuard()
   const navigate = useNavigate();
 
   const menuItems: MenuItem[] = [
@@ -63,7 +64,13 @@ const EmployeeSidebar: React.FC<EmployeeSidebarProps> = ({ children }) => {
       );
 
       localStorage.removeItem("authToken");
+      
+      window.history.replaceState(null, "", "/login");
+
       navigate("/login", { replace: true });
+      // navigate(0);
+
+
     } catch (error) {
       console.error("Error during logout:", error);
     }
