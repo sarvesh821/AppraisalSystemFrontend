@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import getCSRFToken from "../../utils/getCSRFToken";
 import "./AddTask.css";
-import { Modal, Button } from "react-bootstrap";
+import { Modal} from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faEdit } from "@fortawesome/free-solid-svg-icons";
 import Cookies from "js-cookie";

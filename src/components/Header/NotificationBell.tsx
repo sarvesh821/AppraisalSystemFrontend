@@ -3,6 +3,7 @@ import axios from "axios";
 import { Badge, ListGroup } from "react-bootstrap";
 import "./NotificationBell.css";
 import { FaBell } from "react-icons/fa";
+
 const NotificationBell: React.FC = () => {
   const [notifications, setNotifications] = useState<any[]>([]);
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
@@ -50,9 +51,23 @@ const NotificationBell: React.FC = () => {
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
     if (showDropdown) {
+      
+    }
+  };
+
+  const handleOutsideClick = (event: any) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setShowDropdown(false);
       markNotificationsAsRead();
     }
   };
+
+  useEffect(() => {
+    document.addEventListener("click", handleOutsideClick);
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, []);
 
   return (
     <div className="notification-bell" ref={dropdownRef}>
