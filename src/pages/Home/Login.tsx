@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from "react";
+import React, { useState, FormEvent, useEffect } from "react";
 import axios from "axios";
 import "./Login.css";
 
@@ -7,7 +7,17 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const [showError, setShowError] = useState<boolean>(false);
 
+
+  useEffect(() => {
+    if (error) {
+      setShowError(true);
+      setTimeout(() => {
+        setShowError(false);
+      }, 2000); // 2 seconds
+    }
+  }, [error]);
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
@@ -31,10 +41,12 @@ const Login: React.FC = () => {
       } else {
         console.error("Login error:", response.data.error);
         setError("Invalid username or password.");
+        setShowError(true)
       }
     } catch (err) {
       console.error("Login error:", err);
       setError("Invalid credentials. Please try again.");
+      setShowError(true)
     }
   };
 
@@ -68,7 +80,7 @@ const Login: React.FC = () => {
               required
             />
           </div>
-          {error && <p className="error">{error}</p>}
+          {showError && <p className="error">{error}</p>}
           <button type="submit" className="btn">
             LOGIN
           </button>
