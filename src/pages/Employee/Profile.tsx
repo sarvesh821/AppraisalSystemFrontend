@@ -9,9 +9,7 @@ interface ProfileProps {
   email: string;
   contact_no: string;
   date_of_joining: string;
-
   date_of_birth: string;
-
   location: string;
 }
 

@@ -240,7 +240,7 @@ const AddTask: React.FC = () => {
       )}
       {/* Task table */}
       <div className="col">
-        <div className="col-md-12">
+        <div className="col-md-12 ">
           <div className="card">
             <div className="card-header">
               <h2 className="card-title">Tasks to Rate</h2>
@@ -279,16 +279,17 @@ const AddTask: React.FC = () => {
                 </tbody>
               </table>
             </div>
-            {employee && employee.has_completed_one_year === true && (
+            
+          </div>
+          {employee && employee.has_completed_one_year === true && (
               <button
                 onClick={sendTasksForAppraisal}
-                className="mt-3 btn btn-primary"
-                style={{ borderRadius: "0px" }}
+                className="mt-3 btn btn-primary "
+                style={{ borderRadius: "34px", width:"305px" }}
               >
                 Send Tasks for Appraisal
               </button>
             )}
-          </div>
         </div>
       </div>
       <button className="floating-button" onClick={() => setShowModal(true)}>
