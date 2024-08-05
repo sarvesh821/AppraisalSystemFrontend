@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import getCSRFToken from "../../utils/getCSRFToken";
 import "./AddTask.css";
-import { Modal} from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faEdit } from "@fortawesome/free-solid-svg-icons";
 import Cookies from "js-cookie";
@@ -22,8 +22,8 @@ const AddTask: React.FC = () => {
     type: "success" | "error";
     message: string;
   } | null>(null);
-  const [editTask, setEditTask] = useState<any>(null); 
-  const [showEditModal, setShowEditModal] = useState(false); 
+  const [editTask, setEditTask] = useState<any>(null);
+  const [showEditModal, setShowEditModal] = useState(false);
   const csrfToken = getCSRFToken();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -238,6 +238,7 @@ const AddTask: React.FC = () => {
           {notification.message}
         </div>
       )}
+      {/* Task table */}
       <div className="col">
         <div className="col-md-12">
           <div className="card">
@@ -253,7 +254,7 @@ const AddTask: React.FC = () => {
                     <th>Time Taken</th>
                     <th>Appraisable</th>
                     <th>Status</th>
-                    <th>Action</th> 
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -291,10 +292,10 @@ const AddTask: React.FC = () => {
         </div>
       </div>
       <button className="floating-button" onClick={() => setShowModal(true)}>
-<FontAwesomeIcon icon={faPlus} />
-</button>
+        <FontAwesomeIcon icon={faPlus} />
+      </button>
 
-      
+      {/* Add task Modal */}
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Add Task</Modal.Title>
@@ -414,24 +415,3 @@ const AddTask: React.FC = () => {
 };
 
 export default AddTask;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

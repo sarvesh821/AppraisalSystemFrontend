@@ -165,6 +165,7 @@ const EmployeeTasks: React.FC = () => {
   };
 
   return (
+    // Task table of employee after rating
     <div className="container mt-2">
       <div className="col">
         <div className="col-md-12">
@@ -197,6 +198,7 @@ const EmployeeTasks: React.FC = () => {
           </div>
         </div>
       </div>
+      {/* Attributes of the employee after rating */}
       <div className="container">
         {showAttributes && (
           <div ref={attributesSectionRef} className="attributesSection">
