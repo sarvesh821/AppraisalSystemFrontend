@@ -171,7 +171,7 @@ const EmployeeTasks: React.FC = () => {
         <div className="col-md-12">
           <div className="card">
             <div className="card-header">
-              <h2 className="card-title " style={{ color: "#4d6cd9" ,fontWeight:"550"}}>Rated Tasks</h2>
+              <h2 className="card-title " style={{ color: "#636364" ,fontWeight:"550"}}>Rated Tasks</h2>
             </div>
             <div className="table-responsive">
               <table className="table table-striped">

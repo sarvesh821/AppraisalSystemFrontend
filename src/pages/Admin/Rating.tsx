@@ -78,7 +78,7 @@ const EmployeeList = () => {
 
   return (
     <div className="container mt-3">
-      <h2 style={{ color: "#4d6cd9", fontWeight:"550"}}>Employee List</h2>
+      <h2 style={{ color: "#636364", fontWeight:"550"}}>Employee List</h2>
       <div className="list-group">
         {employees.map((employee) => (
           <Link
