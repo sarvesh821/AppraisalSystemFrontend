@@ -31,7 +31,7 @@ select {
 button {
   padding: 10px 20px;
   font-size: 16px;
-  background-color: #17a2b8;
+  background-color: #4d6cd9;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -40,5 +40,5 @@ button {
 }
 
 button:hover {
-  background-color: #138496;
+  background-color: #384f9f;
 }

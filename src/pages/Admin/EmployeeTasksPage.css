@@ -1,12 +1,15 @@
 .table-striped {
-  max-height: 545px;
+  max-height: 465px;
   overflow-y: auto;
   display: block;
   width: 100%;
   table-layout: fixed;
   /* border-radius: 5px; */
 }
-
+.table-striped::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
 .table thead th {
   position: sticky;
   top: 0;

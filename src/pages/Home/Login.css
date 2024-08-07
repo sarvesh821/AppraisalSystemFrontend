@@ -49,7 +49,7 @@
 }
 
 .btn {
-  background-color: #17a2b8;
+  background-color: #4d6cd9;
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -60,7 +60,7 @@
 }
 
 .btn:hover {
-  background-color: #138496;
+  background-color: #384f9f;
 }
 
 .extra-links {
@@ -69,7 +69,7 @@
 
 .extra-links a {
   display: block;
-  color: #138496;
+  color: #4d6cd9;
   text-decoration: none;
   margin-top: 0.5rem;
 }

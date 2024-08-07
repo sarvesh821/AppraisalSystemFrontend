@@ -50,7 +50,7 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #384f9f;
 }
 .floating-button {
   position: fixed;
@@ -59,7 +59,7 @@ button:hover {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: #007bff;
+  background-color: #4d6cd9;
   color: white;
   border: none;
   display: flex;

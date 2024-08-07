@@ -148,9 +148,6 @@ const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({
           </Row>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
           <Button variant="primary" type="submit">
             Save Changes
           </Button>

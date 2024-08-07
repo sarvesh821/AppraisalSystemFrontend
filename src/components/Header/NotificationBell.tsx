@@ -51,7 +51,8 @@ const NotificationBell: React.FC = () => {
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
     if (showDropdown) {
-      
+      setShowDropdown(false);
+      markNotificationsAsRead();
     }
   };
 
