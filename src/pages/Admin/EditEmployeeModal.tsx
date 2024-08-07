@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form, Row, Col } from "react-bootstrap";
-import axios from "axios";
+import axios from "axios"
+
 
 interface Employee {
   id: number;
@@ -64,7 +65,7 @@ const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Edit Employee</Modal.Title>
+        <Modal.Title style={{ color: "#4d6cd9" }}>Edit Employee</Modal.Title>
       </Modal.Header>
       <Form onSubmit={handleSubmit}>
         <Modal.Body>

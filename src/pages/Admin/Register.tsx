@@ -27,11 +27,13 @@ const RegisterEmployee: React.FC = () => {
       [name]: value,
     });
   };
+
   const token = localStorage.getItem("authToken");
   if (!token) {
     console.error("No auth token found");
-    return;
+    return null;
   }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -46,7 +48,7 @@ const RegisterEmployee: React.FC = () => {
           },
         }
       );
-      setSuccessMessage("Employee Registered Sucessfully!");
+      setSuccessMessage("Employee Registered Successfully!");
       console.log("Employee registered successfully:", response.data);
       setTimeout(() => {
         setSuccessMessage("");
@@ -77,7 +79,7 @@ const RegisterEmployee: React.FC = () => {
           {successMessage}
         </div>
       )}
-      <h2 style={{ color: "#17a2b8;" }}>Register Employee</h2>
+      <h2 style={{ color: "#4d6cd9" }}>Register Employee</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="username">Username:</label>
@@ -178,8 +180,8 @@ const RegisterEmployee: React.FC = () => {
             required
           >
             <option value="">Select Role</option>
-            <option value="ADMIN">ADMIN</option>
-            <option value="EMPLOYEE">EMPLOYEE</option>
+            <option value="ADMIN">Admin</option>
+            <option value="EMPLOYEE">Employee</option>
           </select>
         </div>
         <div className="form-group">
@@ -193,7 +195,7 @@ const RegisterEmployee: React.FC = () => {
             required
           />
         </div>
-        <div className="form-group">
+        <div className="form-group full-width">
           <label htmlFor="password">Password:</label>
           <input
             type="password"

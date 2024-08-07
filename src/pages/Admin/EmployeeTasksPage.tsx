@@ -75,7 +75,7 @@ const EmployeeTasksPage: React.FC = () => {
 
   return (
     <div className="employee-tasks-page">
-      <h2>Tasks for {employeeName}</h2>
+      <h2 style={{ color: "#4d6cd9" }}>Tasks for {employeeName}</h2>
       <table className="table table-striped">
         <thead>
           <tr>
